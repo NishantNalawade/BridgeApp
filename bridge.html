@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>HCP Bridges</title>
+	<link rel="stylesheet" href="common.css" />
+	<style>
+	body {
+		background: rgb(200,200,200);
+		color: rgb(0,0,0);
+		font-size: 100%;
+		padding: 0px 20px;
+	}
+	.SensorData {
+		font-size: 120%;
+		font-weight: bold;
+	}
+	.SensorData span {
+		font-weight: normal;
+	}
+	  .visible {visibility: visible}
+	  .hidden {visibility: hidden}
+	</style>
+	<script>
+	var onHCP = true;
+	var eHostString = 'evothings://' + location.host;
+	
+	function init() {
+		if (location.hostname.indexOf('ondemand.com') == -1 ) {
+			onHCP = false;
+//			alert(eHostString);
+		}
+		
+		
+	}
+	
+	function sensorBridgeClicked(link,sLink) {
+		link.href=eHostString+sLink;
+		return false;
+	}
+	
+		
+	</script>
+</head>
+<body onload='init();'>
+	<h1>TI SensorTag</h1>
+	<a href='' onclick="sensorBridgeClicked(this,'/simpleSensortag/bridge-st/index.html')">Launch Bridge for SensorTag IoT</a><br/><br/>
+
+</body>
+</html>
