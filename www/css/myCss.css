@@ -49,19 +49,25 @@
 
 .list{
     margin-top: 3.125em;
-    background: #fff;
     margin-left: 1.5em;
     margin-right: 1.5em;
     margin-bottom: 1em;
 }
 .list-item{
     margin-top: 1em;
+    padding-top: 1em;
+    background: #fff;    
     float: left;
     width: 100%;
     padding-left: 2em;
+    padding-bottom: 2em;
 }
 .list-icon{
     float: left;
     margin-right: 1.25em;
     padding-right: 2.5em;
+}
+
+.live-data{
+    margin-bottom: 0.25em;
 }
