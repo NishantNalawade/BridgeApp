@@ -137,7 +137,7 @@
 			displayValue('StatusData', 'Ready to connect')
 			displayValue('DeviceData', '?')
 //			displayValue('KeypressData', blank)
-			displayValue('IRTemperatureData', blank)
+			displayValue('TemperatureData', blank)
 			displayValue('AccelerometerData', blank)
 			displayValue('HumidityData', blank)
 			displayValue('MagnetometerData', blank)
@@ -224,7 +224,7 @@
 		pushToHCP('irtemperature',parseFloat(tf.toFixed(2)),'F');
 		// Update the value displayed.
         window.temperatureFinal = tc;
-		displayValue('IRTemperatureData', string)
+		displayValue('TemperatureData', string)
 	}
 
 	function accelerometerHandler(data)
