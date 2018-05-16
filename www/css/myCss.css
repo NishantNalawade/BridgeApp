@@ -12,7 +12,6 @@
 }
 .App-Bar{
     background-color: #000000;
-    height: 50px;
     color: #ffffff;
     float: left;
     padding: 1em;
@@ -20,13 +19,16 @@
     margin-bottom: 1.5em;
 }
 
-.Sensor-Name{
+.Sensor-Details{
     float: left;
     margin-right: 100px;
 }
 
 .restart{
-    align-items: end;
+    margin-top: 2em;
+    margin-right: 3em;
+    justify-content: flex-end;
+    display: flex;
 }
 
 .row{

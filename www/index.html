@@ -483,10 +483,23 @@
 			</header> -->
 		<div class="container">
 				<div class = "App-Bar">
-						<div class="Sensor-Name" id="DeviceData"></div>
-						<div  class="restart">
-							<button  onClick='location.reload();'>Restart Bridge</button>
-						</div>
+					<div class="Sensor-Details">
+						<p>
+							<strong>Bridge Function:</strong> <span id="BridgeStatusData">SensorTag to HCP</span>
+						</p>
+						<p>
+							<strong>Sensors Nearby:</strong> <span id="SensorsNearbyData"></span>
+						</p>
+						<p>
+							<strong>Status:</strong> <span id="StatusData">Ready to connect</span>
+						</p>
+						<p>
+							<strong>Device Info:</strong> <span id="DeviceData"></span>
+						</p>
+					</div>
+					<div  class="restart">
+						<button  onClick='location.reload();'>Restart Bridge</button>
+					</div>
 				</div>
 				
 					<div class="row">
