@@ -25,6 +25,10 @@
     margin-right: 100px;
 }
 
+.restart{
+    align-items: end;
+}
+
 .row{
     padding-top: 0.5em;
     padding-bottom: 0.5em;    
@@ -34,9 +38,9 @@
     
 }
 
-.column{
+.column{  
     float: left;
-    width: 22%;
+    width: 23.5%;
     padding: 5px;
     text-align: center;
 }
