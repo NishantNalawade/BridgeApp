@@ -11,25 +11,14 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="-1" />
     <meta http-equiv="cache-control" content="no-store" />
-    <link rel="stylesheet" type="text/css" href="../css/iotDashboard.css" />
+	<link rel="stylesheet" type="text/css" href="../css/iotDashboard.css" />
+	<link rel="stylesheet" type="text/css" href="css/myCss.css" />	
 	<link type="text/css" rel="stylesheet" href="../css/site.css" />
 	<link type="text/css" rel="stylesheet" href="../css/style.css" />
 	<link type="text/css" rel="stylesheet" href="../css/sensortag.css" />
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <style>
-      html,body{
-        height: 100%;
-        margin: 0px;
-        font:11px Verdana,Arial;
-        padding: 0px
-      }
-	body {
-//		background: rgba(23, 130, 153, 1);
-//		background-image: url('img/sensortag.png');
-		background-size: contain;
-		min-height: 100%;
-	}
+
     </style>
 	<title>TI SensorTag 2.0 Sensors</title>
 	<script>
@@ -495,69 +484,221 @@
 	</script>
 	</head>
 <body class='pageDefault' onload='initialize();' >
-	<div id="uiArea">
+	<div id="uiArea">		
+			<!-- <header>
+				<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>
+			</header> -->
+		<div class="container">
+				<div class = "App-Bar">
+						<div class="Sensor-Name">Sensor Tag Name</div>
+						<div>On/Off</div>
+				</div>
+				
+					<div class="row">
+						<div class="column">
+							<div>
+								<img src="img/icons8-temperature-48.png">
+							</div>
+							<div>Temperature</div>
+						</div>
+						<div class="column">
+								<div>
+									<img src="img/icons8-light-on-48.png">
+								</div>
+								<div>Light</div>
+						</div>
+						<div class="column">
+								<div>
+									<img src="img/icons8-humidity-48.png">						
+								</div>
+								<div>Humidity</div>
+						</div>
+						<div class="column">
+								<div>
+									<img src="img/icons8-atmospheric-pressure-48.png">
+								</div>
+								<div>Atmospheric Pressure</div>
+						</div>
+				
+					</div>
+							
+					<div class="row">
+							<div class="column">
+								<div>
+									<img src="img/icons8-gyroscope-48.png">
+								</div>
+								<div>Gyroscope</div>
+							</div>
+							<div class="column">
+									<div>
+										<img src="img/icons8-speed-48.png">
+									</div>
+									<div>Accelerometer</div>
+							</div>
+							<div class="column">
+									<div>
+										<img src="img/icons8-magnet-48.png">
+									</div>
+									<div>Magnetometer</div>
+							</div>
+							<div class="column">
+									<div>
+										<img src="img/icons8-motion-sensor-48.png">
+									</div>
+									<div>Gyroscope</div>
+							</div>
+					
+						</div>
+		
+		
+					<div class="list">
+						<div class="list-item">
+							<div class="list-icon">
+								<img src="img/icons8-temperature-48.png">						
+							</div>
+							<div class="list-item-details">
+								<div>
+									<span id="Temperature Data">[Waiting for value]</span>
+									<div>Temperature</div>
+								</div>
+							</div>
+						</div>
 
-	<header>
-		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
-	</header>
+						<div class="list-item">
+							<div class="list-icon">
+								<img src="img/icons8-humidity-48.png">						
+							</div>
+							<div class="list-item-details">
+								<div> 
+									<span id="Humidity Data">[Waiting for value]</span>
+									<div>Humidity</div>
+								</div>
+							</div>
+						</div>
 
-	<h1>
-		<strong>Bridge Function:</strong> <span id="BridgeStatusData">SensorTag to HCP</span><button onClick='location.reload();'>Restart Bridge</button>
-	</h1>
-	<p>
-		<strong>Sensors Nearby:</strong> <span id="SensorsNearbyData"></span>
-	</p>
-	<p>
-		<strong>Status:</strong> <span id="StatusData">Ready to connect</span>
-	</p>
-	<p>
-		<strong>Device Info:</strong> <span id="DeviceData"></span>
-	</p>
+						<div class="list-item">
+							<div class="list-icon">
+								<img src="img/icons8-light-on-48.png">						
+							</div>
+							<div class="list-item-details">
+								<div>
+									<span id="Luxometer Data">[Waiting for value]</span>
+									<div>Luxometer</div>
+								</div>
+							</div>
+						</div>
 
+						<div class="list-item">
+							<div class="list-icon">
+								<img src="img/icons8-atmospheric-pressure-48.png">					
+							</div>
+							<div class="list-item-details">
+								<div>
+									<span id="Barometer Data">[Waiting for value]</span>
+									<div>Barometer</div>
+								</div>
+							</div>
+						</div>
 
-	<h2>Temperature:</h2>
-	<p>
-		<span id="IRTemperatureData">[Waiting for value]</span>
-	</p>
+						<div class="list-item">
+							<div class="list-icon">
+								<img src="img/icons8-speed-48.png">						
+							</div>
+							<div class="list-item-details">
+								<div>
+									<span id="Accelerometer Data">[Waiting for value]</span>
+									<div>Accelerometer</div>
+								</div>
+							</div>
+						</div>
 
-	<h2>Accelerometer:</h2>
-	<p>
-		<span id="AccelerometerData">[Waiting for value]</span>
-	</p>
+						<div class="list-item">
+							<div class="list-icon">
+								<img src="img/icons8-magnet-48.png">						
+							</div>
+							<div class="list-item-details">
+								<div>
+									<span id="Magnetometer Data">[Waiting for value]</span>
+									<div>Magnetometer</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="list-item">
+							<div class="list-icon">
+								<img src="img/icons8-gyroscope-48.png">						
+							</div>
+							<div class="list-item-details">
+								<div>
+									<span id="Gyroscope Data">[Waiting for value]</span>
+									<div>Gyroscope</div>
+								</div>
+							</div>
+						</div>
 
-
-	<h2>Gyroscope:</h2>
-	<p>
-		<span id="GyroscopeData">[Waiting for value]</span>
-	</p>
-
-	<h2>Luxometer:</h2>
-	<p>
-		<span id="LuxometerData">[Waiting for value]</span>
-	</p>
-
-	<h2>Humidity:</h2>
-	<p>
-		<span id="HumidityData">[Waiting for value]</span>
-	</p>
-
-	<h2>Magnetometer:</h2>
-	<p>
-		<span id="MagnetometerData">[Waiting for value]</span>
-	</p>
-
-	<h2>Barometer:</h2>
-	<p>
-		<span id="BarometerData">[Waiting for value]</span>
-	</p>
-	<h2>Buttons:</h2>
-	<p>
-		<strong>Big Button:</strong> <span id="Keypress1Data"></span>
-	</p>
-	<p>
-		<strong>Little Button:</strong> <span id="Keypress2Data"></span>
-	</p>
-	</div>
-</body>
-
+					</div>
+				
+		</div>
+			
+			<!-- <div>
+			<h1>
+				<strong>Bridge Function:</strong> <span id="BridgeStatusData">SensorTag to HCP</span><button onClick='location.reload();'>Restart Bridge</button>
+			</h1>
+			<p>
+				<strong>Sensors Nearby:</strong> <span id="SensorsNearbyData"></span>
+			</p>
+			<p>
+				<strong>Status:</strong> <span id="StatusData">Ready to connect</span>
+			</p>
+			<p>
+				<strong>Device Info:</strong> <span id="DeviceData"></span>
+			</p>
+			</div>
+		
+			<h2>Temperature:</h2>
+			<p>
+				<span id="IRTemperatureData">[Waiting for value]</span>
+			</p>
+		
+			<h2>Accelerometer:</h2>
+			<p>
+				<span id="AccelerometerData">[Waiting for value]</span>
+			</p>
+		
+		
+			<h2>Gyroscope:</h2>
+			<p>
+				<span id="GyroscopeData">[Waiting for value]</span>
+			</p>
+		
+			<h2>Luxometer:</h2>
+			<p>
+				<span id="LuxometerData">[Waiting for value]</span>
+			</p>
+		
+			<div>
+			<h2>Humidity:</h2>
+			<p>
+				</span><span id="HumidityData">[Waiting for value]</span>
+			</p>
+		
+			<h2>Magnetometer:</h2>
+			<p>
+				<span id="MagnetometerData">[Waiting for value]</span>
+			</p>
+		
+			<h2>Barometer:</h2>
+			<p>
+				<span id="BarometerData">[Waiting for value]</span>
+			</p>
+			<h2>Buttons:</h2>
+			<p>
+				<strong>Big Button:</strong> <span id="Keypress1Data"></span>
+			</p>
+			<p>
+				<strong>Little Button:</strong> <span id="Keypress2Data"></span>
+			</p>
+			</div> -->
+		</body>
+		
 </html>

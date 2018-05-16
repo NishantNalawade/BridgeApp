@@ -1,0 +1,48 @@
+
+
+.container{
+    min-width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-family: 'Times New Roman', Times, serif;
+    padding: 0px
+}
+.App-Bar{
+    background-color: #000000;
+    height: 50px;
+    color: #ffffff;
+    float: left;
+    padding: 1em;
+    width: 100%;
+}
+
+.Sensor-Name{
+    float: left;
+    margin-right: 100px;
+}
+
+.row{
+    margin-top: 1.875em;
+    padding-left: 
+}
+
+.column{
+    float: left;
+    width: 22%;
+    padding: 5px;
+}
+
+.list{
+    margin-top: 3.125em;
+}
+.list-item{
+    float: left;
+    width: 100%;
+}
+.list-icon{
+    float: left;
+    margin-right: 1.25em;
+    padding-left: 2.5;
+}
