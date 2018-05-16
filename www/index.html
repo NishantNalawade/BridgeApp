@@ -209,13 +209,13 @@
 		var tf = sensortag.celsiusToFahrenheit(tc)
 
 		// Prepare the information to display.
-		var string = ''
-//			'raw: 0x' + bufferToHexStr(data, 0, 4) + '<br/>'
+		var string = 'raw: 0x' + bufferToHexStr(data, 0, 4) + '<br/>'
 			+ (tc >= 0 ? '+' : '') + tc.toFixed(2) + '&deg; C '
 			+ '(' + (tf >= 0 ? '+' : '') + tf.toFixed(2) + '&deg; F)' + '<br/>'
 			+ (ac >= 0 ? '+' : '') + ac.toFixed(2) + '&deg; C '
 			+ '(' + (af >= 0 ? '+' : '') + af.toFixed(2) + '&deg; F) [amb]' + '<br/>'
 			+ 'Count = ' + ++sensortag.tempCount + '<br/>'
+        var string = tc + '&deg; C';
 
 		if (currentDevice.deviceName == "") {
 			currentDevice.deviceName = sensortag.device.address;
@@ -245,7 +245,7 @@
 			+ 'x = ' + (x >= 0 ? '+' : '') + x.toFixed(2) + '<br/>'
 			+ 'y = ' + (y >= 0 ? '+' : '') + y.toFixed(2) + '<br/>'
 			+ 'z = ' + (z >= 0 ? '+' : '') + z.toFixed(2) + '<br/>'
-		string +=	'Count = ' + ++sensortag.accelerometerCount
+//		string +=	'Count = ' + ++sensortag.accelerometerCount
 
 		pushToHCP('maccelerationx',parseFloat(x.toFixed(2)),'g');
 		pushToHCP('maccelerationy',parseFloat(y.toFixed(2)),'g');
@@ -266,16 +266,16 @@
 
 		// Calculate the relative humidity.
 		var h = values.relativeHumidity
-        window.humidityFinal = tc;
+        window.humidityFinal = h.toFixed(2);
 		h = h < 0?h*-1:h;
 
 		// Prepare the information to display.
-		string =
-			'raw: 0x' + bufferToHexStr(data, 0, 4) + '<br/>'
-			+ (tc >= 0 ? '+' : '') + tc.toFixed(2) + '&deg; C '
-			+ '(' + (tf >= 0 ? '+' : '') + tf.toFixed(2) + '&deg; F)' + '<br/>'
-			+ (h >= 0 ? '+' : '') + h.toFixed(2) + '% RH' + '<br/>'
-
+//		string =
+//			'raw: 0x' + bufferToHexStr(data, 0, 4) + '<br/>'
+//			+ (tc >= 0 ? '+' : '') + tc.toFixed(2) + '&deg; C '
+//			+ '(' + (tf >= 0 ? '+' : '') + tf.toFixed(2) + '&deg; F)' + '<br/>'
+//			+ (h >= 0 ? '+' : '') + h.toFixed(2) + '% RH' + '<br/>'
+        string = (h >= 0 ? '+' : '') + h.toFixed(2) + '% RH' + '<br/>';
 		// Update the value displayed.
 		displayValue('HumidityData', string);
 		if (h != currentHumidity) {
@@ -305,7 +305,6 @@
 			'x: ' + (x >= 0 ? '+' : '') + x.toFixed(1) + '&micro;T <br/>' +
 			'y: ' + (y >= 0 ? '+' : '') + y.toFixed(1) + '&micro;T <br/>' +
 			'z: ' + (z >= 0 ? '+' : '') + z.toFixed(1) + '&micro;T <br/>'
-
 
 
 		// Update the value displayed.
@@ -351,12 +350,17 @@
         window.gyroscopeYFinal = y; 
         window.gyroscopeZFinal = z; 
 		// Prepare the information to display.
-		string =
+//		string =
+//			''
+//			+ 'x = ' + (x >= 0 ? '+' : '') + x.toFixed(1) + '<br/>'
+//			+ 'y = ' + (y >= 0 ? '+' : '') + y.toFixed(1) + '<br/>'
+//			+ 'z = ' + (z >= 0 ? '+' : '') + z.toFixed(1) + '<br/>'
+//			+ 'Count = ' + ++sensortag.gyroscopeCount	
+        string =
 			''
 			+ 'x = ' + (x >= 0 ? '+' : '') + x.toFixed(1) + '<br/>'
 			+ 'y = ' + (y >= 0 ? '+' : '') + y.toFixed(1) + '<br/>'
 			+ 'z = ' + (z >= 0 ? '+' : '') + z.toFixed(1) + '<br/>'
-			+ 'Count = ' + ++sensortag.gyroscopeCount
 
 		pushToHCP('rotx',parseFloat(x.toFixed(1)),'deg/sec');
 		pushToHCP('roty',parseFloat(y.toFixed(1)),'deg/sec');
@@ -369,7 +373,8 @@
 	function luxometerHandler(data)
 	{
 		// Prepare the information to display.
-		var string = data[1]/2 + " Count=" + ++sensortag.lightCount + '<br/>';
+//		var string = data[1]/2 + " Count=" + ++sensortag.lightCount + '<br/>';
+        var string = data[1]/2 ;
 		// Update the value displayed.
         window.luxFinal = (data[1]/2);
 		displayValue('LuxometerData', string )
@@ -473,6 +478,28 @@
 		false);
 
 	function initialize() {
+        var options = {
+      enableHighAccuracy: true,
+      maximumAge: 3600000
+   }
+   var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
+
+   function onSuccess(position) {
+      alert('Latitude: '          + position.coords.latitude          + '\n' +
+         'Longitude: '         + position.coords.longitude         + '\n' +
+         'Altitude: '          + position.coords.altitude          + '\n' +
+         'Accuracy: '          + position.coords.accuracy          + '\n' +
+         'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+         'Heading: '           + position.coords.heading           + '\n' +
+         'Speed: '             + position.coords.speed             + '\n' +
+         'Timestamp: '         + position.timestamp                + '\n');
+      pushToHCP('lat',position.coords.latitude,'deg');
+      pushToHCP('lon',position.coords.latitude,'deg');
+   };
+
+   function onError(error) {
+      alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+   }
 	}
 
 
