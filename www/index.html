@@ -11,8 +11,9 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="-1" />
     <meta http-equiv="cache-control" content="no-store" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="css/myCss.css" />	
-	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 	<title>TI SensorTag 2.0 Sensors</title>
@@ -23,9 +24,12 @@
 	<script src="cordova.js"></script>
 	<script src="libs/jquery/jquery.js"></script>
 	<script src="libs/evothings/evothings.js"></script>
+    
 	<script src="libs/evothings/tisensortag/tisensortag.js"></script>
+    <script src="js/Chart.js"></script>
+    
 	<script>
-	var currentDevice = {};
+    var currentDevice = {};
 	var bRemote = document.URL.substr(0,3) == 'http';
 	var currentTemperature = 0;
 	var currentIRTemperature = 0;
@@ -44,21 +48,23 @@
 	sensortag.tempCount = 0;
 	sensortag.humidityCount = 0;
 	sensortag.accelerometerCount = 0;
-	sensortag.gyroscopeCount = 0;
-	sensortag.barometerCount = 0;
-    window.humidityFinal = 0;
-    window.temperatureFinal = 0;
-    window.luxFinal = 0;
-    window.pressureFinal = 0;
-    window.magnetometerXFinal = 0;
-    window.magnetometerYFinal = 0;
-    window.magnetometerZFinal = 0;
+	sensortag.gyroscopeCount   = 0;
+	sensortag.barometerCount   = 0;
+    window.humidityFinal       = 0;
+    window.temperatureFinal    = 0;
+    window.luxFinal            = 0;
+    window.pressureFinal       = 0;
+    window.magnetometerXFinal  = 0;
+    window.magnetometerYFinal  = 0;
+    window.magnetometerZFinal  = 0;
     window.accelerometerXFinal = 0;
     window.accelerometerYFinal = 0;
     window.accelerometerZFinal = 0;
-    window.gyroscopeXFinal = 0; 
-    window.gyroscopeYFinal = 0; 
-    window.gyroscopeZFinal = 0; 
+    window.gyroscopeXFinal     = 0; 
+    window.gyroscopeYFinal     = 0; 
+    window.gyroscopeZFinal     = 0; 
+    window.lat                 = 0;
+    window.long                = 0;
 	function init() {
 
 	}
@@ -377,7 +383,7 @@
         var string = data[1]/2 ;
 		// Update the value displayed.
         window.luxFinal = (data[1]/2);
-		displayValue('LuxometerData', string )
+		displayValue('LuxometerData', string );
 		pushToHCP('light',data[1]/2,'pct');
 	}
 
@@ -426,14 +432,12 @@
 		}
 		return hex
 	}
+        function pushToHCP(param,value) {
+            sendMessage(param,value);
+    //        alert(sensortag.deviceName);
+            messagesSent++;
+            displayValue('StatusData', "Sensor online. " + messagesSent + " messages sent.");
 
-
-	function pushToHCP(param,value) {
-		sendMessage(param,value);
-//        alert(sensortag.deviceName);
-		messagesSent++;
-		displayValue('StatusData', "Sensor online. " + messagesSent + " messages sent.");
-        
 	}
 	function sendMessage(param,value) {
 		var msg = '{'
@@ -456,7 +460,7 @@
 //         alert(sensortag.device.address);
         $.ajax(settings).success(function (response) {
           console.log(response);
-//          alert(window.temperatureFinal);
+          alert(window.temperatureFinal);
         }).error(function(response){
         alert("fail");
 //              alert(sensortag.tempCount.toString);
@@ -482,27 +486,28 @@
       enableHighAccuracy: true,
       maximumAge: 3600000
    }
+   
    var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
-
    function onSuccess(position) {
       alert('Latitude: '          + position.coords.latitude          + '\n' +
          'Longitude: '         + position.coords.longitude         + '\n' +
-         'Altitude: '          + position.coords.altitude          + '\n' +
+//         'Altitude: '          + position.coords.altitude          + '\n' +
          'Accuracy: '          + position.coords.accuracy          + '\n' +
-         'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-         'Heading: '           + position.coords.heading           + '\n' +
-         'Speed: '             + position.coords.speed             + '\n' +
+//         'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+//         'Heading: '           + position.coords.heading           + '\n' +
+//         'Speed: '             + position.coords.speed             + '\n' +
          'Timestamp: '         + position.timestamp                + '\n');
-      pushToHCP('lat',position.coords.latitude,'deg');
-      pushToHCP('lon',position.coords.latitude,'deg');
+      var string = 'Lat: ' + position.coords.latitude + '</br>' + 'Long: ' + position.coords.longitude + '</br>';
+       displayValue('LocationData', string );
+      window.lat = position.coords.latitude ;
+      window.long = position.coords.latitude ;
+      displayValue('LocationData', string );
    };
 
    function onError(error) {
       alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
    }
 	}
-
-
 	</script>
 	</head>
 <body class='pageDefault' onload='initialize();' >	
@@ -592,8 +597,6 @@
 							</div>
 					
 						</div>
-		
-		
 					<div class="list">
 						<div class="list-item">
 							<div class="list-icon">
@@ -601,6 +604,19 @@
 							</div>
 							<div class="list-item-details">
 								<div>
+                                    <div id="chartTemp" style="height: 10rem; width: 70%;"></div>
+<!--
+                                    <canvas id="mycanvas" width="400" height="100"></canvas>
+                                    <script>
+                                    var smoothie = new SmoothieChart({grid:{fillStyle:'#ffffff',strokeStyle:'#000000'},labels:{fillStyle:'#000000'},minValue:0,maxValue:100,showIntermediateLabels: true});
+                                    smoothie.streamTo(document.getElementById("mycanvas"),4000);
+                                        var line1 = new TimeSeries();
+                                        setInterval(function() {
+                                          line1.append(new Date().getTime(), window.lat);
+                                        }, 500);
+                                        smoothie.addTimeSeries(line1,{lineWidth:2,strokeStyle:'#ff2600'});
+                                    </script>
+-->
 									<!-- <span id="TemperatureData">[Waiting for value]</span>
 									<div>Temperature</div> -->
 								</div>
@@ -613,6 +629,7 @@
 							</div>
 							<div class="list-item-details">
 								<div> 
+                                    <div id="chartHumid" style="height: 10rem; width: 70%;"></div>
 									<!-- <span id="HumidityData">[Waiting for value]</span>
 									<div>Humidity</div> -->
 								</div>
@@ -637,6 +654,8 @@
 							</div>
 							<div class="list-item-details">
 								<div>
+                                    
+                                    
 									<!-- <span id="BarometerData">[Waiting for value]</span>
 									<div>Barometer</div> -->
 								</div>
@@ -649,6 +668,7 @@
 							</div>
 							<div class="list-item-details">
 								<div>
+                                    <div id="chartAccel" style="height: 10rem; width: 70%;"></div>
 									<!-- <span id="AccelerometerData">[Waiting for value]</span>
 									<div>Accelerometer</div> -->
 								</div>
@@ -694,6 +714,7 @@
 					</div>
 				
 		</div>
+    <script src="js/ChartsFunctions.js"></script>
 </body>
 <!-- <div>
 	<h1>
