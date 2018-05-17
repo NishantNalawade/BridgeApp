@@ -190,15 +190,21 @@
 							</div>
 							<div class="list-item-details">
 								<div>
-                                 <canvas id="accelGraph" width="500" height="200"></canvas>
+                                 <canvas id="accelGraph" width="250px" height="200"></canvas>
                                     <script>
-                                    var accelSmoothie = new SmoothieChart({grid:{fillStyle:'#ffffff',strokeStyle:'#000000'},labels:{fillStyle:'#000000'},minValue:0,maxValue:100,showIntermediateLabels: true});
-                                    accelSmoothie.streamTo(document.getElementById("accelGraph"),4000);
+                                    var accelSmoothie = new SmoothieChart({grid:{fillStyle:'#ffffff',strokeStyle:'#000000'},labels:{fillStyle:'#000000'},minValue:0,maxValue:2500,showIntermediateLabels: true});
+                                    accelSmoothie.streamTo(document.getElementById("accelGraph"),1000);
                                         var accelLine = new TimeSeries();
+                                        var accelLine1 = new TimeSeries();
+                                        var accelLine2 = new TimeSeries();
                                         setInterval(function() {
-                                          accelLine.append(new Date().getTime(), Math.random()*100);
+                                          accelLine.append(new Date().getTime(), window.accelerometerXFinal);
+                                          accelLine1.append(new Date().getTime(), window.accelerometerYFinal);
+                                          accelLine2.append(new Date().getTime(), window.accelerometerZFinal);
                                         }, 250);
                                         accelSmoothie.addTimeSeries(accelLine,{lineWidth:2,strokeStyle:'#ff2600'});
+                                        accelSmoothie.addTimeSeries(accelLine1,{lineWidth:2,strokeStyle:'#00b6ff'});
+                                        accelSmoothie.addTimeSeries(accelLine2,{lineWidth:2,strokeStyle:'#00ff3b'});
                                     </script>
 								</div>
 							</div>
@@ -214,15 +220,22 @@
 							</div>
 							<div class="list-item-details">
 								<div>
-									<canvas id="magnetGraph" width="500" height="200"></canvas>
+									<canvas id="magnetGraph" width="250px" height="200"></canvas>
 									<script>
-                                    var magnetSmoothie = new SmoothieChart({grid:{fillStyle:'#ffffff',strokeStyle:'#000000'},labels:{fillStyle:'#000000'},minValue:0,maxValue:100,showIntermediateLabels: true});
-                                    magnetSmoothie.streamTo(document.getElementById("magnetGraph"),4000);
+                                    var magnetSmoothie = new SmoothieChart({grid:{fillStyle:'#ffffff',strokeStyle:'#000000'},labels:{fillStyle:'#000000'},minValue:0,maxValue:500,showIntermediateLabels: true});
+                                    magnetSmoothie.streamTo(document.getElementById("magnetGraph"),1000);
                                         var magnetLine = new TimeSeries();
+                                        var magnetLine1 = new TimeSeries();
+                                        var magnetLine2 = new TimeSeries();
+                                        
                                         setInterval(function() {
-                                          magnetLine.append(new Date().getTime(), Math.random()*100);
+                                          magnetLine.append(new Date().getTime(), window.magnetometerXFinal);
+                                          magnetLine1.append(new Date().getTime(), window.magnetometerYFinal);
+                                          magnetLine2.append(new Date().getTime(), window.magnetometerZFinal);
                                         }, 250);
-                                        magnetSmoothie.addTimeSeries(magnetLine,{lineWidth:2,strokeStyle:'#ff2600'});
+                                       magnetSmoothie.addTimeSeries(magnetLine,{lineWidth:2,strokeStyle:'#ff2600'});
+                                        magnetSmoothie.addTimeSeries(magnetLine1,{lineWidth:2,strokeStyle:'#00b6ff'});
+                                        magnetSmoothie.addTimeSeries(magnetLine2,{lineWidth:2,strokeStyle:'#00ff3b'});
                                     </script>
 								</div>
 							</div>
@@ -238,6 +251,23 @@
 							</div>
 							<div class="list-item-details">
 								<div>
+                                    <canvas id="gyroGraph" width="250px" height="200"></canvas>
+									<script>
+                                    var gyroSmoothie = new SmoothieChart({grid:{fillStyle:'#ffffff',strokeStyle:'#000000'},labels:{fillStyle:'#000000'},minValue:0,maxValue:1000,showIntermediateLabels: true});
+                                    gyroSmoothie.streamTo(document.getElementById("gyroGraph"),1000);
+                                        var gyroLine = new TimeSeries();
+                                        var gyroLine1 = new TimeSeries();
+                                        var gyroLine2 = new TimeSeries();
+                                        var time       = new Date().getTime();
+                                        setInterval(function() {
+                                          gyroLine.append(new Date().getTime(), window.gyroscopeXFinal);
+                                          gyroLine1.append(new Date().getTime(), window.gyroscopeYFinal);
+                                          gyroLine2.append(new Date().getTime(), window.gyroscopeZFinal);
+                                        }, 250);
+                                        gyroSmoothie.addTimeSeries(gyroLine,{lineWidth:2,strokeStyle:'#ff2600'});
+                                        gyroSmoothie.addTimeSeries(gyroLine1,{lineWidth:2,strokeStyle:'#00b6ff'});
+                                        gyroSmoothie.addTimeSeries(gyroLine2,{lineWidth:2,strokeStyle:'#00ff3b'});
+                                    </script>
 									<!-- <span id="GyroscopeData">[Waiting for value]</span>
 									<div>Gyroscope</div> -->
 								</div>
