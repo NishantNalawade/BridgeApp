@@ -1,13 +1,11 @@
-// Script for the Graphs      
-window.onload = function () {
-    "use strict";
-    var xVal = 0, xVal2 = 0, yVal = 40, yVal2 = 40, updateInterval = 300, dps = [], dps2 = []/* number of dataPoints visible at any */, dataLength = 40,dataLength2 = 40, j;
-    var dataPoints1 = [];
-    var dataPoints2 = [];
-    var dataPoints3 = [];
-    
-    
-    
+//// Script for the Graphs      
+//window.onload = function () {
+//    "use strict";
+//    var xVal = 0, xVal2 = 0, yVal = 40, yVal2 = 80, updateInterval = 300, dps = [], dps2 = []/* number of dataPoints visible at any */, dataLength = 40,dataLength2 = 40, dataLength3 = 40;
+//    var dataPoints1 = [];
+//    var dataPoints2 = [];
+//    var dataPoints3 = [];
+//    
 //    
 //    var chartTemp = new CanvasJS.Chart("chartTemp", {
 //   
@@ -35,6 +33,7 @@ window.onload = function () {
 ////	},
 //	data: [{ 
 //		type: "spline",
+//        markerSize: 0,
 //		xValueType: "dateTime",
 //		yValueFormatString: "$####.00",
 //		xValueFormatString: "hh:mm TT",
@@ -44,6 +43,7 @@ window.onload = function () {
 //		},
 //		{				
 //			type: "spline",
+//            markerSize: 0,
 //			xValueType: "dateTime",
 //			yValueFormatString: "$####.00",
 ////			showInLegend: true,
@@ -52,6 +52,7 @@ window.onload = function () {
 //	},
 //           {type: "spline",
 //		xValueType: "dateTime",
+//        markerSize: 0,
 //		yValueFormatString: "$####.00",
 //		xValueFormatString: "hh:mm TT",
 ////		showInLegend: true,
@@ -70,9 +71,9 @@ window.onload = function () {
 //	}
 //	chartTemp.render();
 //    }
-//    var yValue1 = 600; 
-//    var yValue2 = 600;
-//    var yValue3 = 600;
+//    var yValue1 = 60; 
+//    var yValue2 = 60;
+//    var yValue3 = 60;
 //    var time = new Date;
 //    
 //    function updateTemp(count) {
@@ -100,9 +101,9 @@ window.onload = function () {
 //	});
 //                if (dataPoints1.length > dataLength) {
 //            dataPoints1.shift();}
-//                    if (dataPoints2.length > dataLength) {
+//                    if (dataPoints2.length > dataLength2) {
 //            dataPoints2.shift();}
-//                        if (dataPoints3.length > dataLength) {
+//                        if (dataPoints3.length > dataLength3 ) {
 //            dataPoints3.shift();
 //        }
 //	}
@@ -116,95 +117,90 @@ window.onload = function () {
 //    updateTemp(10);	
 //    setInterval(function(){updateTemp()}, updateInterval);
 //
-
-    var chartHumid = new CanvasJS.Chart("chartHumid", {
-
-//        animationEnabled: true,
-        axisY: {
-            includeZero: false
-
-        },
-        data: [{
-            type: "spline",
-            markerSize: 0,
-            dataPoints: dps 
-        },
-             {
-            type: "spline",
-            markerSize: 0,
-            dataPoints: dps2
-        },  
-              
-              ]
-    });
-
-    var updateHumid = function (count) {
-        count = count || 1;
-        // count is number of times loop runs to generate random dataPoints.
-        for (var j = 0; j < count; j++) {	
-            yVal = Math.random();
-            yVal2 = Math.random();
-            
-            dps.push({
-                x: xVal,
-                y: yVal
-            });
-                xVal++;
-            dps2.push({
-            x: xVal2,
-            y: yVal2
-            });
-
-            xVal2++
-        }
-        if (dps.length > dataLength) {
-            dps.shift();
-        }if (dps2.length > dataLength2) {
-            dps2.shift();
-        }
-        chartHumid.render();
-    };
-    updateHumid(dataLength);
-    setInterval(function(){ updateHumid() }, updateInterval);
-    
-    
-    
-    var chartAccelerometer = new CanvasJS.Chart("chartAccel", {
-
-    animationEnabled: true,
-    axisY: {
-        includeZero: false
-
-    },
-    axisY2: {
-		includeZero : false
-	},
-    data: [{
-        type: "spline",
-        markerSize: 0,
-        dataPoints: dps 
-    }]
-    });
-    
-    var updateAccel = function (count) {
-        count = count || 1;
-        // count is number of times loop runs to generate random dataPoints.
-        for (var j = 0; j < count; j++) {	
-            yVal = window.accelerometerXFinal;
-            yVal2 = Math.random();
-
-            dps.push({
-                x: xVal,
-                y: yVal,
-                y2: yVal2
-            });
-            xVal++;
-        }
-        if (dps.length > dataLength) {
-            dps.shift();
-        }
-        chartAccelerometer.render();
-    };
-    updateAccel(dataLength);
-    setInterval(function(){ updateAccel() }, updateInterval);
-     }
+//
+//    var chartHumid = new CanvasJS.Chart("chartHumid", {
+//
+////        animationEnabled: true,
+////        axisY: {
+////            includeZero: false
+////
+////        },
+//        data: [{
+//            type: "spline",
+//            markerSize: 0,
+//            dataPoints: dps 
+//        },
+//             {
+//            type: "spline",
+//            markerSize: 0,
+//            dataPoints: dps2
+//        },  
+//              
+//              ]
+//    });
+//
+//    var updateHumid = function (count) {
+//        count = count || 1;
+//        // count is number of times loop runs to generate random dataPoints.
+//        for (var j = 0; j < count; j++) {	
+//            yVal = Math.random();
+//            yVal2 = Math.random();
+//            
+//            dps.push({
+//                x: xVal,
+//                y: yVal
+//            });
+//                xVal++;
+//            dps2.push({
+//            x: xVal2,
+//            y: yVal2
+//            });
+//
+//            xVal2++;
+//        }
+//        if (dps.length > dataLength) {
+//            dps.shift();
+//        }if (dps2.length > dataLength2) {
+//            dps2.shift();
+//        }
+//        chartHumid.render();
+//    };
+//    updateHumid(dataLength);
+//    setInterval(function(){ updateHumid() }, updateInterval);
+//    
+//    
+//    
+//    var chartAccelerometer = new CanvasJS.Chart("chartAccel", {
+//
+//    axisY: {
+//        includeZero: false
+//
+//    },
+//    data: [{
+//        type: "spline",
+//        markerSize: 0,
+//        dataPoints: dps 
+//    }]
+//    });
+//    
+//    var updateAccel = function (count) {
+//        count = count || 1;
+//        // count is number of times loop runs to generate random dataPoints.
+//        for (var j = 0; j < count; j++) {	
+//            yVal = window.accelerometerXFinal;
+//            yVal2 = Math.random();
+//
+//            dps.push({
+//                x: xVal,
+//                y: yVal
+//            });
+//            xVal++;
+//        }
+//        if (dps.length > dataLength) {
+//            dps.shift();
+//        }
+//        chartAccelerometer.render();
+//    };
+//    updateAccel(dataLength);
+//    setInterval(function(){ updateAccel() }, updateInterval);
+//     }
