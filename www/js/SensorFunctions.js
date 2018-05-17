@@ -349,13 +349,13 @@
 		 var settings = {
           "async": true,
           "crossDomain": true,
-          "url": "https://gservice.cfapps.sap.hana.ondemand.com/devices/" + sensortag.device.address +"/postData",
+          "url": "https://gatewayservice.cfapps.eu10.hana.ondemand.com/devices/" + sensortag.device.address +"/postData",
           "method": "POST",
           "headers": {
             "content-type": "application/json",
             "cache-control": "no-cache"
           },
-          "data": JSON.stringify({"Humidity" : window.humidityFinal, "Temperature" : window.temperatureFinal, "Luxometer" : window.luxFinal, "Pressure": window.pressureFinal, "magnetometerX" : window.magnetometerXFinal, "magnetometerY" : window.magnetometerYFinal, "magnetometerZ" : window.magnetometerZFinal,    "accelerometerX" : window.accelerometerXFinal, "accelerometerY" : window.accelerometerYFinal,  "accelerometerZ" : window.accelerometerYFinal, "gyroscopeX" : window.gyroscopeXFinal,"gyroscopeY" : window.gyroscopeYFinal, "gyroscopeZ" : window.gyroscopeZFinal  })
+          "data": JSON.stringify({"Humidity" : window.humidityFinal, "Temperature" : window.temperatureFinal, "Luxometer" : window.luxFinal, "Pressure": window.pressureFinal, "magnetometerX" : window.magnetometerXFinal, "magnetometerY" : window.magnetometerYFinal, "magnetometerZ" : window.magnetometerZFinal,    "accelerometerX" : window.accelerometerXFinal, "accelerometerY" : window.accelerometerYFinal,  "accelerometerZ" : window.accelerometerYFinal, "gyroscopeX" : window.gyroscopeXFinal,"gyroscopeY" : window.gyroscopeYFinal, "gyroscopeZ" : window.gyroscopeZFinal, "Latitude" : window.lat , "Longitude" : window.long})
         }
          
 
@@ -364,9 +364,9 @@
           alert("Success");
         }).error(function(response){
         alert("Disconnected \n Reconnecting...");
-             sendMessage(param,value);
-            alert("Connection Failed");
-             timeout(2300);
+//             sendMessage(param,value);
+//            alert("Connection Failed");
+//             timeout(1000);
         
         });
     }
