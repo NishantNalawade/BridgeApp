@@ -253,7 +253,7 @@
 								<div>
                                     <canvas id="gyroGraph" width="250px" height="200"></canvas>
 									<script>
-                                    var gyroSmoothie = new SmoothieChart({grid:{fillStyle:'#ffffff',strokeStyle:'#000000'},labels:{fillStyle:'#000000'},minValue:0,maxValue:1000,showIntermediateLabels: true});
+                                    var gyroSmoothie = new SmoothieChart({grid:{fillStyle:'#ffffff',strokeStyle:'#000000'},labels:{fillStyle:'#000000'},minValue:0,maxValue:200,showIntermediateLabels: true});
                                     gyroSmoothie.streamTo(document.getElementById("gyroGraph"),1000);
                                         var gyroLine = new TimeSeries();
                                         var gyroLine1 = new TimeSeries();
