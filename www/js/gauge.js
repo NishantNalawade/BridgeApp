@@ -12,7 +12,7 @@ var opts = {
 	colorStart: '#ff0000',
 	staticZones: [{
 			strokeStyle: "#F03E3E",
-			min: 00,
+			min: 0,
 			max: 30
 		}, // Red from 100 to 130
 		{
