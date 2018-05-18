@@ -32,24 +32,24 @@
         "source": "/Users/nishant/Documents/GitHub/BridgeApp/platforms/android/app/src/main/res/drawable-land-ldpi/screen.png"
     },
     {
-        "merged": "/Users/nishant/Documents/Cordova/Bridge 1.1/D:\\Innovision\\Cordova\\testing\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-land-hdpi_screen.png.flat",
-        "source": "/Users/nishant/Documents/Cordova/Bridge 1.1/D:\\Innovision\\Cordova\\testing\\platforms\\android\\app\\src\\main\\res\\drawable-land-hdpi\\screen.png"
-    },
-    {
         "merged": "/Users/nishant/Documents/GitHub/BridgeApp/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-xxxhdpi_screen.png.flat",
         "source": "/Users/nishant/Documents/GitHub/BridgeApp/platforms/android/app/src/main/res/drawable-port-xxxhdpi/screen.png"
+    },
+    {
+        "merged": "/Users/nishant/Documents/Cordova/Bridge 1.1/D:\\Innovision\\Cordova\\testing\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-land-hdpi_screen.png.flat",
+        "source": "/Users/nishant/Documents/Cordova/Bridge 1.1/D:\\Innovision\\Cordova\\testing\\platforms\\android\\app\\src\\main\\res\\drawable-land-hdpi\\screen.png"
     },
     {
         "merged": "/Users/nishant/Documents/Cordova/Bridge 1.1/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-xhdpi_screen.png.flat",
         "source": "/Users/nishant/Documents/Cordova/Bridge 1.1/platforms/android/app/src/main/res/drawable-land-xhdpi/screen.png"
     },
     {
-        "merged": "/Users/nishant/Documents/Cordova/Bridge 1.1/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_icon.png.flat",
-        "source": "/Users/nishant/Documents/Cordova/Bridge 1.1/platforms/android/app/src/main/res/mipmap-xxxhdpi/icon.png"
-    },
-    {
         "merged": "/Users/nishant/Documents/GitHub/BridgeApp/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-xxhdpi_screen.png.flat",
         "source": "/Users/nishant/Documents/GitHub/BridgeApp/platforms/android/app/src/main/res/drawable-land-xxhdpi/screen.png"
+    },
+    {
+        "merged": "/Users/nishant/Documents/Cordova/Bridge 1.1/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_icon.png.flat",
+        "source": "/Users/nishant/Documents/Cordova/Bridge 1.1/platforms/android/app/src/main/res/mipmap-xxxhdpi/icon.png"
     },
     {
         "merged": "/Users/nishant/Documents/Cordova/Bridge 1.1/D:\\Innovision\\Cordova\\testing\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-land-xhdpi_screen.png.flat",

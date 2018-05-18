@@ -110,13 +110,6 @@
 			displayValue('BarometerData', blank)
 			displayValue('GyroscopeData', blank)
             displayValue('LuxometerData', blank )
-			displayValue('TemperatureData1', blank)
-			displayValue('AccelerometerData1', blank)
-			displayValue('HumidityData1', blank)
-			displayValue('MagnetometerData1', blank)
-			displayValue('BarometerData1', blank)
-			displayValue('GyroscopeData1', blank)
-            displayValue('LuxometerData1', blank )
             
 
 			// Reset screen color.
@@ -185,7 +178,6 @@
 		// Update the value displayed.
         window.temperatureFinal = Math.round(ac);
 		displayValue('TemperatureData', string)
-		displayValue('TemperatureData1', string)
 	}
 
 	function accelerometerHandler(data)
@@ -206,8 +198,7 @@
 		var v = Math.abs((x / 2048) * 100);
 		// Update the value displayed.
 		displayValue('AccelerometerData', string)
-		displayValue('AccelerometerData1', string)
-	}
+    }
 	function humidityHandler(data)
 	{
 		// Calculate the humidity values from raw data.
@@ -225,7 +216,6 @@
         string = (h >= 0 ? '+' : '') + h.toFixed(2) + '% RH' + '<br/>';
 		// Update the value displayed.
 		displayValue('HumidityData', string);
-		displayValue('HumidityData1', string);
 		if (h != currentHumidity) {
 		}
 		currentHumidity = h;
@@ -251,8 +241,6 @@
 
 		// Update the value displayed.
 		displayValue('MagnetometerData', string);
-		displayValue('MagnetometerData1', string);
-
 	}
 
 	function barometerHandler(data)
@@ -270,8 +258,7 @@
 		currentPressure = pressure;
 		// Update the value displayed.
 		displayValue('BarometerData', string)
-		displayValue('BarometerData1', string)
-	}
+    }
 
 	function gyroscopeHandler(data)
 	{
@@ -293,9 +280,8 @@
 			+ 'z = ' + (z >= 0 ? '+' : '') + z.toFixed(1) + '<br/>'
 
 		// Update the value displayed.
-		displayValue('GyroscopeData', string)
-		displayValue('GyroscopeData1', string)
-	}
+		displayValue('GyroscopeData', string);
+    }
 
 	function luxometerHandler(data)
 	{
@@ -304,7 +290,6 @@
 		// Update the value displayed.
         window.luxFinal = (data[1]/2);
 		displayValue('LuxometerData', string + " Lux" );
-		displayValue('LuxometerData1', string + " Lux" );
 	}
 
 	function displayValue(elementId, value)
@@ -408,14 +393,12 @@
    
    var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
    function onSuccess(position) {
-       var valuelat = Math.round(position.coords.latitude);
-       var valuelong = Math.round(position.coords.longitude);
+       var valuelat = Math.round(position.coords.latitude*1000)/1000;
+       var valuelong = Math.round(position.coords.longitude*1000)/1000;
       var string = 'Lat: ' + valuelat + '</br>' + 'Long: ' + valuelong + '</br>';
        displayValue('LocationData', string );
       window.lat = position.coords.latitude ;
       window.long = position.coords.latitude ;
-      displayValue('LocationData', string );
-      displayValue('LocationData1', string );
    }
 
    function onError(error) {
