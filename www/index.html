@@ -202,9 +202,9 @@
 
 			<div class="list-item-details">
 
-					<canvas id="accelGraph" class="graph"></canvas>
+					<canvas id="accelGraph" width="320" height="150px" class="graph"></canvas>
 					<script>
-						var accelSmoothie = new SmoothieChart({ grid: { fillStyle: '#ffffff', strokeStyle: '#000000' }, labels: { fillStyle: '#000000' }, minValue: 0, maxValue: 2500, showIntermediateLabels: true });
+						var accelSmoothie = new SmoothieChart({ grid: { fillStyle: '#ffffff', strokeStyle: '#eeeeee' }, labels: { fillStyle: '#000000' }, minValue: 0, maxValue: 2500, showIntermediateLabels: true });
 						accelSmoothie.streamTo(document.getElementById("accelGraph"), 1000);
 						var accelLine = new TimeSeries();
 						var accelLine1 = new TimeSeries();
@@ -228,9 +228,9 @@
 				<div class="sensor-name gauge-name">Magnetometer</div>
 			</div>
 			<div class="list-item-details">
-					<canvas id="magnetGraph" class="graph"></canvas>
+					<canvas id="magnetGraph" class="graph" width="320" height="150px" ></canvas>
 					<script>
-							var magnetSmoothie = new SmoothieChart({ grid: { fillStyle: '#ffffff', strokeStyle: '#000000' }, labels: { fillStyle: '#000000' }, minValue: 0, maxValue: 500, showIntermediateLabels: true });
+							var magnetSmoothie = new SmoothieChart({ grid: { fillStyle: '#ffffff', strokeStyle: '#eeeeee' }, labels: { fillStyle: '#000000' }, minValue: 0, maxValue: 500, showIntermediateLabels: true });
 							magnetSmoothie.streamTo(document.getElementById("magnetGraph"), 1000);
 							var magnetLine = new TimeSeries();
 							var magnetLine1 = new TimeSeries();
@@ -254,9 +254,9 @@
 					<div class="sensor-name gauge-name">Gyroscope</div>
 			</div>
 			<div class="list-item-details">
-					<canvas id="gyroGraph" class="graph"></canvas>
+					<canvas id="gyroGraph" class="graph" width="320" height="150px"></canvas>
 					<script>
-							var gyroSmoothie = new SmoothieChart({ grid: { fillStyle: '#ffffff', strokeStyle: '#000000' }, labels: { fillStyle: '#000000' }, minValue: 0, maxValue: 200, showIntermediateLabels: true });
+							var gyroSmoothie = new SmoothieChart({ grid: { fillStyle: '#ffffff', strokeStyle: '#eeeeee' }, labels: { fillStyle: '#000000' }, minValue: 0, maxValue: 200, showIntermediateLabels: true });
 							gyroSmoothie.streamTo(document.getElementById("gyroGraph"), 1000);
 							var gyroLine = new TimeSeries();
 							var gyroLine1 = new TimeSeries();

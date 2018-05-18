@@ -76,12 +76,12 @@ var option2 = {
 	limitMin: false, // If true, the min value of the gauge will be fixed
 	staticZones: [{
 		strokeStyle: "#000",
-		min: -5,
-		max: 0
+		min: -1,
+		max: 1
 	}, 
 	{
 		strokeStyle: "#fffde7",
-		min: 0,
+		min: 1,
 		max: 15
 	}, 
 	{
@@ -241,7 +241,7 @@ tempGauge.set(0); // set actual value
 var lightTarget = document.getElementById('lightGauge'); // your canvas element
 var lightGauge = new Gauge(lightTarget).setOptions(option2); // create sexy gauge!
 lightGauge.maxValue = 100; // set max gauge value
-lightGauge.setMinValue(-5); // Prefer setter over gauge.minValue = 0
+lightGauge.setMinValue(-1); // Prefer setter over gauge.minValue = 0
 lightGauge.animationSpeed = 32; // set animation speed (32 is default value)
 lightGauge.set(10);
 

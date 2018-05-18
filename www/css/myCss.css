@@ -65,7 +65,7 @@
 .list-icon{
     display: inline-flex;
         margin-left: 5em;
-margin-bottom: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .live-data{
@@ -80,8 +80,6 @@ margin-bottom: 0.5em;
 }
 
 .graph{
-    width:90%;
-    height: 150px;
     padding-top: 0.5em;
     margin-left: 1.5em;
     margin-right: 1.5em;
@@ -106,6 +104,7 @@ margin-bottom: 0.5em;
     float: left;
     margin-top: 1em;    
     margin-left: 2.5em;
+    background-color: #fff;
 }
 
 .gauge-name{
@@ -118,4 +117,6 @@ margin-left: 1em;
     margin-top: 1em;
     margin-left: 0.5em;
     margin-right: 0.5em;
+    background-color: #fff;
+    margin-bottom: 1em;
 }
