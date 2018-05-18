@@ -109,6 +109,15 @@
 			displayValue('MagnetometerData', blank)
 			displayValue('BarometerData', blank)
 			displayValue('GyroscopeData', blank)
+            displayValue('LuxometerData', blank )
+			displayValue('TemperatureData1', blank)
+			displayValue('AccelerometerData1', blank)
+			displayValue('HumidityData1', blank)
+			displayValue('MagnetometerData1', blank)
+			displayValue('BarometerData1', blank)
+			displayValue('GyroscopeData1', blank)
+            displayValue('LuxometerData1', blank )
+            
 
 			// Reset screen color.
 			setBackgroundColor('white')
@@ -174,28 +183,30 @@
 			displayValue('DeviceName',currentDevice.deviceName + " connected " + currentDevice.connectionCount + " times.");
 		}
 		// Update the value displayed.
-        window.temperatureFinal = ac;
+        window.temperatureFinal = Math.round(ac);
 		displayValue('TemperatureData', string)
+		displayValue('TemperatureData1', string)
 	}
 
 	function accelerometerHandler(data)
 	{
 		// Calculate the x,y,z accelerometer values from raw data.
 		var values = sensortag.getModelTwoAccelerometerValues(data)
-		var x = values.x
+		var x = values.x;
 		var y = values.y
 		var z = values.z
-        window.accelerometerXFinal = x; //X-Axis value
-        window.accelerometerYFinal = y; //Y-Axis value
-        window.accelerometerZFinal = z; //Z-Axis value
+        window.accelerometerXFinal = Math.round(x); //X-Axis value
+        window.accelerometerYFinal = Math.round(y); //Y-Axis value
+        window.accelerometerZFinal = Math.round(z); //Z-Axis value
 		// Prepare the information to display.
 		string = ''
-			+ 'x = ' + (x >= 0 ? '+' : '') + x.toFixed(2) + '<br/>'
-			+ 'y = ' + (y >= 0 ? '+' : '') + y.toFixed(2) + '<br/>'
-			+ 'z = ' + (z >= 0 ? '+' : '') + z.toFixed(2) + '<br/>'
+			+ 'x = ' + (x >= 0 ? '+' : '') + window.accelerometerXFinal + '<br/>'
+			+ 'y = ' + (y >= 0 ? '+' : '') + window.accelerometerYFinal + '<br/>'
+			+ 'z = ' + (z >= 0 ? '+' : '') + window.accelerometerZFinal + '<br/>'
 		var v = Math.abs((x / 2048) * 100);
 		// Update the value displayed.
 		displayValue('AccelerometerData', string)
+		displayValue('AccelerometerData1', string)
 	}
 	function humidityHandler(data)
 	{
@@ -207,12 +218,14 @@
 
 		// Calculate the relative humidity.
 		var h = values.relativeHumidity
-        window.humidityFinal = h.toFixed(2);
+//        alert(window.humidityFinal);
 		h = h < 0?h*-1:h;
+        window.humidityFinal = Math.round(h.toFixed(2));
 		// Prepare the information to display.
         string = (h >= 0 ? '+' : '') + h.toFixed(2) + '% RH' + '<br/>';
 		// Update the value displayed.
 		displayValue('HumidityData', string);
+		displayValue('HumidityData1', string);
 		if (h != currentHumidity) {
 		}
 		currentHumidity = h;
@@ -225,9 +238,9 @@
 		var x = values.x
 		var y = values.y
 		var z = values.z
-        window.magnetometerXFinal = x;
-        window.magnetometerYFinal = y;
-        window.magnetometerXZFinal = z;
+        window.magnetometerXFinal = Math.round(x);
+        window.magnetometerYFinal = Math.round(y);
+        window.magnetometerXZFinal = Math.round(z);
 
 		// Prepare the information to display.
 		var string =
@@ -238,6 +251,7 @@
 
 		// Update the value displayed.
 		displayValue('MagnetometerData', string);
+		displayValue('MagnetometerData1', string);
 
 	}
 
@@ -256,6 +270,7 @@
 		currentPressure = pressure;
 		// Update the value displayed.
 		displayValue('BarometerData', string)
+		displayValue('BarometerData1', string)
 	}
 
 	function gyroscopeHandler(data)
@@ -279,6 +294,7 @@
 
 		// Update the value displayed.
 		displayValue('GyroscopeData', string)
+		displayValue('GyroscopeData1', string)
 	}
 
 	function luxometerHandler(data)
@@ -287,7 +303,8 @@
         var string = data[1]/2 ;
 		// Update the value displayed.
         window.luxFinal = (data[1]/2);
-		displayValue('LuxometerData', string );
+		displayValue('LuxometerData', string + " Lux" );
+		displayValue('LuxometerData1', string + " Lux" );
 	}
 
 	function displayValue(elementId, value)
@@ -361,7 +378,7 @@
 
         $.ajax(settings).success(function (response) {
           console.log(response);
-          alert("Success");
+//          alert("Success");
         }).error(function(response){
         alert("Disconnected \n Reconnecting...");
 //             sendMessage(param,value);
@@ -396,6 +413,7 @@
       window.lat = position.coords.latitude ;
       window.long = position.coords.latitude ;
       displayValue('LocationData', string );
+      displayValue('LocationData1', string );
    }
 
    function onError(error) {
