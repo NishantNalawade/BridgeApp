@@ -1,0 +1,122 @@
+
+
+.container-fluid{
+    background-color: #f9f8fb;
+    min-width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    font-family: 'Roboto';
+    font-size: 14px;
+    padding: 0px
+}
+.App-Bar{
+    background-color: #000000;
+    color: #ffffff;
+    float: left;
+    padding: 1em;
+    width: 100%;
+}
+
+.Sensor-Details{
+    float: left;
+    margin-right: 100px;
+}
+
+.restart{
+    margin-top: 2em;
+    margin-right: 3em;
+    justify-content: flex-end;
+    display: flex;
+}
+
+
+.row{
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;    
+    background: #fff;
+    margin-left: 1.5em;
+    margin-right: 1.5em;
+      box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+.col-xs-3{  
+    padding: 5px;
+    text-align: center;
+}
+
+.list{
+    background-color: #f9f8fb;
+    margin-top: 2em;
+    margin-left: 1.5em;
+    margin-right: 1.5em;
+    margin-bottom: 1em;
+}
+.list-item{
+    margin-top: 1em;
+    padding-top: 1em;
+    background: #fff;    
+    width: 100%;
+    margin-right: 2em;
+    /* padding-left: 2em; */
+    padding-bottom: 2em;
+}
+.list-icon{
+    display: inline-flex;
+        margin-left: 5em;
+    margin-bottom: 0.5em;
+}
+
+.live-data{
+    margin-top: 0.25em;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+    float: left;
+}
+.sensor-name{
+    font-weight: bold; 
+    margin-bottom: 0.25em;
+}
+
+.graph{
+    padding-top: 0.5em;
+    margin-left: 1.5em;
+    margin-right: 1.5em;
+}
+
+.card{
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.info-block{
+    margin-top: 1.5em;
+}
+.card-row{
+    float: left;
+    padding-top: 1em;
+    width: 100%;
+    /* margin-left: 2em; */
+
+}
+
+.gauge{
+    float: left;
+    margin-top: 1em;    
+    margin-left: 2.5em;
+    background-color: #fff;
+}
+
+.gauge-name{
+padding-top: 1em;
+margin-left: 1em;
+
+}
+
+.graph-card{
+    margin-top: 1em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    background-color: #fff;
+    margin-bottom: 1em;
+}

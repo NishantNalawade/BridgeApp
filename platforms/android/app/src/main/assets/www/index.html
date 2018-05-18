@@ -3,564 +3,298 @@
 	Demonstration of the TI SensorTag JavaScript library.
 	Modified to connect with the HANA Cloud Platform
 
-	Date: 10/7/2015
+	Date: 10/7/2018
 -->
 <html>
 
 <head>
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="-1" />
-    <meta http-equiv="cache-control" content="no-store" />
-    <link rel="stylesheet" type="text/css" href="../css/iotDashboard.css" />
-	<link type="text/css" rel="stylesheet" href="../css/site.css" />
-	<link type="text/css" rel="stylesheet" href="../css/style.css" />
-	<link type="text/css" rel="stylesheet" href="../css/sensortag.css" />
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <style>
-      html,body{
-        height: 100%;
-        margin: 0px;
-        font:11px Verdana,Arial;
-        padding: 0px
-      }
-	body {
-//		background: rgba(23, 130, 153, 1);
-//		background-image: url('img/sensortag.png');
-		background-size: contain;
-		min-height: 100%;
-	}
-    </style>
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="-1" />
+	<meta http-equiv="cache-control" content="no-store" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/myCss.css" />
+	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<title>TI SensorTag 2.0 Sensors</title>
 	<script>
-	// Redirect console.log to Evothings Workbench.
-	if (window.hyper && window.hyper.log) { console.log = hyper.log }
+		// Redirect console.log to Evothings Workbench.
+		if (window.hyper && window.hyper.log) { console.log = hyper.log }
 	</script>
 	<script src="cordova.js"></script>
 	<script src="libs/jquery/jquery.js"></script>
 	<script src="libs/evothings/evothings.js"></script>
+	<script src="js/smoothie.js"></script>
 	<script src="libs/evothings/tisensortag/tisensortag.js"></script>
-	<script>
-	var currentDevice = {};
-	var bRemote = document.URL.substr(0,3) == 'http';
-	var currentTemperature = 0;
-	var currentIRTemperature = 0;
-	var currentHumidity = 0;
-	var currentPressure = 0;
-	var currentVibration = 0;
-	// SensorTag object.
-	var sensortag = evothings.tisensortag.createInstance()
-	var messagesSent = 0;
-	var deviceCount = 0;
-	var firmware;
-
-	sensortag.lightCount = 0;
-	sensortag.button1Count = 0;
-	sensortag.button2Count = 0;
-	sensortag.tempCount = 0;
-	sensortag.humidityCount = 0;
-	sensortag.accelerometerCount = 0;
-	sensortag.gyroscopeCount = 0;
-	sensortag.barometerCount = 0;
-    window.humidityFinal = 0;
-    window.temperatureFinal = 0;
-    window.luxFinal = 0;
-    window.pressureFinal = 0;
-    window.magnetometerXFinal = 0;
-    window.magnetometerYFinal = 0;
-    window.magnetometerZFinal = 0;
-    window.accelerometerXFinal = 0;
-    window.accelerometerYFinal = 0;
-    window.accelerometerZFinal = 0;
-    window.gyroscopeXFinal = 0; 
-    window.gyroscopeYFinal = 0; 
-    window.gyroscopeZFinal = 0; 
-	function init() {
-
-	}
-
-	function updateStatus() {
-		console.log('updating status');
-		displayValue('BridgeStatusData', 'SensorTag to HCP');
-	}
-
-        function initialiseSensorTag()
-	{
-		//
-		// Here sensors are set up.
-		//
-		// If you wish to use only one or a few sensors, just set up
-		// the ones you wish to use.
-		//
-		// First parameter to sensor function is the callback function.
-		// Several of the sensors take a millisecond update interval
-		// as the second parameter.
-		// Gyroscope takes the axes to enable as the third parameter:
-		// 1 to enable X axis only, 2 to enable Y axis only, 3 = X and Y,
-		// 4 = Z only, 5 = X and Z, 6 = Y and Z, 7 = X, Y and Z.
-		//
-		var movementConfigVal = 60;
-//		connect();
-		sensortag
-			.statusCallback(statusHandler)
-			.errorCallback(errorHandler)
-			.keypressCallback(keypressHandler)
-			.irTemperatureCallback(irTemperatureHandler, 5000)
-			.humidityCallback(humidityHandler,20000)
-			.barometerCallback(barometerHandler, 50000)
-			.luxometerCallback(luxometerHandler, 1000)
-			.connectToClosestDevice()
-
-        var options = { timeout: 30000 };
-    	console.log(JSON.stringify(evothings));
-    	console.log(JSON.stringify(device));
-
-
-	}
-
-	function statusHandler(status)
-	{
-		displayValue('SensorsNearbyData', 'There are ' + Object.keys(sensortag.devicesFound).length + ' sensors nearby.')
-		deviceCount = 0;
-		if ('Device data available' == status)
-		{
-
-			console.log('about to updatestats.  device = ' + JSON.stringify(sensortag.device));
-			updateStatus();
-			console.log('currentDevice = ' + JSON.stringify(currentDevice));
-    		displayValue('DeviceName',currentDevice.deviceName + " connected " + currentDevice.connectionCount + " times.");
-			var fw = sensortag.getFirmwareString();
-//			alert(sensortag.device.address);
-			var status = sensortag.device.address + ' ' + fw;
-			if (firmware < 1.2) {
-				status = firmware + " You are running an old firmware version.  You can continue to use this, but please upgrade to v1.20 soon.  This can be done by using the TI app.";
-				sensortag.movementCallback([accelerometerHandler,gyroscopeHandler,magnetometerHandler], 100, 254);
-			} else {
-	 			sensortag.movementCallback([accelerometerHandler,gyroscopeHandler,magnetometerHandler], 100, 255);
-			}
-			displayValue('DeviceData', status)
-			pushToHCP("firmware",fw,"version");
-		}
-		displayValue('StatusData', status)
-	}
-
-	function errorHandler(error)
-	{
-		console.log('Error: ' + error)
-		if ('disconnected' == error)
-		{
-			// Clear current values.
-			var blank = '[Waiting for value]'
-			displayValue('StatusData', 'Ready to connect')
-			displayValue('DeviceData', '?')
-//			displayValue('KeypressData', blank)
-			displayValue('IRTemperatureData', blank)
-			displayValue('AccelerometerData', blank)
-			displayValue('HumidityData', blank)
-			displayValue('MagnetometerData', blank)
-			displayValue('BarometerData', blank)
-			displayValue('GyroscopeData', blank)
-
-			// Reset screen color.
-			setBackgroundColor('white')
-
-			// If disconneted attempt to connect again.
-			setTimeout(
-				function() { sensortag.connectToClosestDevice()
-					sensortag.lightCount = 0;
-					sensortag.buttonCount = 0;
-					sensortag.tempCount = 0;
-					sensortag.humidityCount = 0;
-					sensortag.accelerometerCount = 0;
-					sensortag.gyroscopeCount = 0;
-					sensortag.barometerCount = 0;
-
-
-			},
-				1000)
-		}
-	}
-
-	// calculations implemented as based on TI wiki pages
-	// http://processors.wiki.ti.com/index.php/SensorTag_User_Guide
-
-	function keypressHandler(data)
-	{
-		// Update background color.
-		switch (data[0])
-		{
-			case 0:
-				setBackgroundColor('white')
-				break;
-			case 1:
-				setBackgroundColor('red')
-				var string = 'Count = ' + ++sensortag.button1Count;
-				pushToHCP('button1',sensortag.button1Count,'count');
-                window.button1CoutTotal ++;
-				displayValue('Keypress1Data', string)
-				break;
-			case 2:
-				setBackgroundColor('blue')
-				var string = 'Count = ' + ++sensortag.button2Count;
-				pushToHCP('button2',sensortag.button2Count,'count');
-				displayValue('Keypress2Data', string)
-				break;
-			case 3:
-				setBackgroundColor('magenta')
-				break;
-		}
-
-		// Update the value displayed.
-		var string = 'raw: 0x' + bufferToHexStr(data, 0, 1) + ' Count = ' + ++sensortag.buttonCount;
-		displayValue('KeypressData', string)
-	}
-
-	function irTemperatureHandler(data)
-	{
-		// Calculate temperature from raw sensor data.
-		var values = sensortag.getTemperatureValues(data)
-		var ac = values.ambientTemperature
-		var af = sensortag.celsiusToFahrenheit(ac)
-		var tc = values.targetTemperature
-		var tf = sensortag.celsiusToFahrenheit(tc)
-
-		// Prepare the information to display.
-		var string = ''
-//			'raw: 0x' + bufferToHexStr(data, 0, 4) + '<br/>'
-			+ (tc >= 0 ? '+' : '') + tc.toFixed(2) + '&deg; C '
-			+ '(' + (tf >= 0 ? '+' : '') + tf.toFixed(2) + '&deg; F)' + '<br/>'
-			+ (ac >= 0 ? '+' : '') + ac.toFixed(2) + '&deg; C '
-			+ '(' + (af >= 0 ? '+' : '') + af.toFixed(2) + '&deg; F) [amb]' + '<br/>'
-			+ 'Count = ' + ++sensortag.tempCount + '<br/>'
-
-		if (currentDevice.deviceName == "") {
-			currentDevice.deviceName = sensortag.device.address;
-			displayValue('DeviceName',currentDevice.deviceName + " connected " + currentDevice.connectionCount + " times.");
-		}
-		pushToHCP('temperature',parseFloat(af.toFixed(2)),'F');
-		pushToHCP('irtemperature',parseFloat(tf.toFixed(2)),'F');
-		// Update the value displayed.
-        window.temperatureFinal = tc;
-		displayValue('IRTemperatureData', string)
-	}
-
-	function accelerometerHandler(data)
-	{
-		// Calculate the x,y,z accelerometer values from raw data.
-//		var values = sensortag.getAccelerometerValues(data)
-		var values = sensortag.getModelTwoAccelerometerValues(data)
-		var x = values.x
-		var y = values.y
-		var z = values.z
-        window.accelerometerXFinal = x;
-        window.accelerometerYFinal = y;
-        window.accelerometerZFinal = z;
-		// Prepare the information to display.
-		string = ''
-//			'raw: 0x' + bufferToHexStr(data, 0, 6) + '<br/>'
-			+ 'x = ' + (x >= 0 ? '+' : '') + x.toFixed(2) + '<br/>'
-			+ 'y = ' + (y >= 0 ? '+' : '') + y.toFixed(2) + '<br/>'
-			+ 'z = ' + (z >= 0 ? '+' : '') + z.toFixed(2) + '<br/>'
-		string +=	'Count = ' + ++sensortag.accelerometerCount
-
-		pushToHCP('maccelerationx',parseFloat(x.toFixed(2)),'g');
-		pushToHCP('maccelerationy',parseFloat(y.toFixed(2)),'g');
-		pushToHCP('maccelerationz',parseFloat(z.toFixed(2)),'g');
-		var v = Math.abs((x / 2048) * 100);
-		pushToHCP('movement',parseFloat(v.toFixed(2)),'g');
-		// Update the value displayed.
-		displayValue('AccelerometerData', string)
-	}
-
-	function humidityHandler(data)
-	{
-		// Calculate the humidity values from raw data.
-		var values = sensortag.getHumidityValues(data)
-		// Calculate the humidity temperature (C and F).
-		var tc = values.humidityTemperature
-		var tf = sensortag.celsiusToFahrenheit(tc)
-
-		// Calculate the relative humidity.
-		var h = values.relativeHumidity
-        window.humidityFinal = tc;
-		h = h < 0?h*-1:h;
-
-		// Prepare the information to display.
-		string =
-			'raw: 0x' + bufferToHexStr(data, 0, 4) + '<br/>'
-			+ (tc >= 0 ? '+' : '') + tc.toFixed(2) + '&deg; C '
-			+ '(' + (tf >= 0 ? '+' : '') + tf.toFixed(2) + '&deg; F)' + '<br/>'
-			+ (h >= 0 ? '+' : '') + h.toFixed(2) + '% RH' + '<br/>'
-
-		// Update the value displayed.
-		displayValue('HumidityData', string);
-		if (h != currentHumidity) {
-			pushToHCP('humidity',parseFloat(h.toFixed(2)),'pct');
-		}
-		currentHumidity = h;
-	}
-
-	function magnetometerHandler(data)
-	{
-		// Calculate the magnetometer values from raw sensor data.
-		var values = sensortag.getMagnetometerValues(data)
-		var x = values.x
-		var y = values.y
-		var z = values.z
-        window.magnetometerXFinal = x;
-        window.magnetometerYFinal = y;
-        window.magnetometerXZFinal = z;
-
-		//var model = sensortag.getDeviceModel()
-		//var dataOffset = (model == 2 ? 12 : 0)
-
-		// Prepare the information to display.
-		var string =
-			//'raw: <span style="font-family: monospace;">0x' +
-			//	bufferToHexStr(data, dataOffset, 6) + '</span><br/>' +
-			'x: ' + (x >= 0 ? '+' : '') + x.toFixed(1) + '&micro;T <br/>' +
-			'y: ' + (y >= 0 ? '+' : '') + y.toFixed(1) + '&micro;T <br/>' +
-			'z: ' + (z >= 0 ? '+' : '') + z.toFixed(1) + '&micro;T <br/>'
-
-
-
-		// Update the value displayed.
-		displayValue('MagnetometerData', string);
-
-		pushToHCP('magx',parseFloat(x.toFixed(1)),'µT');
-		pushToHCP('magy',parseFloat(y.toFixed(1)),'µT');
-		pushToHCP('magz',parseFloat(z.toFixed(1)),'µT');
-
-
-	}
-
-	function barometerHandler(data)
-	{
-		// Calculate pressure from raw sensor data.
-		var values = sensortag.getBarometerValues(data)
-		var pressure = values.pressure.toPrecision(4)
-        window.pressureFinal = pressure;
-		// Prepare the information to display.
-		string =
-			//'raw: <span style="font-family: monospace;">0x' +
-			//	bufferToHexStr(data, 0, 4) + '</span><br/>' +
-			'Pressure: ' + pressure + ' mbar<br/>'
-
-		if (pressure != currentPressure) {
-			pushToHCP('pressure',parseFloat(pressure),'mbar');
-		}
-		currentPressure = pressure;
-		// Update the value displayed.
-		displayValue('BarometerData', string)
-	}
-
-	function gyroscopeHandler(data)
-	{
-//		console.log('gyroHandler')
-		// Calculate the gyroscope values from raw sensor data.
-//		var values = sensortag.getGyroscopeValues(data)
-		var values = sensortag.getModelTwoGyroscopeValues(data)
-		var x = values.x
-		var y = values.y
-		var z = values.z
-        window.gyroscopeXFinal = x; 
-        window.gyroscopeYFinal = y; 
-        window.gyroscopeZFinal = z; 
-		// Prepare the information to display.
-		string =
-			''
-			+ 'x = ' + (x >= 0 ? '+' : '') + x.toFixed(1) + '<br/>'
-			+ 'y = ' + (y >= 0 ? '+' : '') + y.toFixed(1) + '<br/>'
-			+ 'z = ' + (z >= 0 ? '+' : '') + z.toFixed(1) + '<br/>'
-			+ 'Count = ' + ++sensortag.gyroscopeCount
-
-		pushToHCP('rotx',parseFloat(x.toFixed(1)),'deg/sec');
-		pushToHCP('roty',parseFloat(y.toFixed(1)),'deg/sec');
-		pushToHCP('rotz',parseFloat(z.toFixed(1)),'deg/sec');
-
-		// Update the value displayed.
-		displayValue('GyroscopeData', string)
-	}
-
-	function luxometerHandler(data)
-	{
-		// Prepare the information to display.
-		var string = data[1]/2 + " Count=" + ++sensortag.lightCount + '<br/>';
-		// Update the value displayed.
-        window.luxFinal = (data[1]/2);
-		displayValue('LuxometerData', string )
-		pushToHCP('light',data[1]/2,'pct');
-	}
-
-	function displayValue(elementId, value)
-	{
-//		console.log(elementId);
-		if (document.getElementById(elementId) !== null) {
-			document.getElementById(elementId).innerHTML = value
-		}
-	}
-
-	function setBackgroundColor(color)
-	{
-		document.documentElement.style.background = color
-		document.body.style.background = color
-	}
-
-	/**
-	 * Convert byte buffer to hex string.
-	 * @param buffer - an Uint8Array
-	 * @param offset - byte offset
-	 * @param numBytes - number of bytes to read
-	 * @return string with hex representation of bytes
-	 */
-	function bufferToHexStr(buffer, offset, numBytes)
-	{
-		var hex = ''
-		for (var i = 0; i < numBytes; ++i)
-		{
-			hex += byteToHexStr(buffer[offset + i])
-		}
-		return hex
-	}
-
-	/**
-	 * Convert byte number to hex string.
-	 */
-	function byteToHexStr(d)
-	{
-		if (d < 0) { d = 0xFF + d + 1 }
-		var hex = Number(d).toString(16)
-		var padding = 2
-		while (hex.length < padding)
-		{
-			hex = '0' + hex
-		}
-		return hex
-	}
-
-
-	function pushToHCP(param,value) {
-		sendMessage(param,value);
-//        alert(sensortag.deviceName);
-		messagesSent++;
-		displayValue('StatusData', "Sensor online. " + messagesSent + " messages sent.");
-        
-	}
-	function sendMessage(param,value) {
-		var msg = '{'
-            + '"NAME":"' + param + '",'
-            + '"VALUE":"' + value  + '"'
-            + '}';
-		 var settings = {
-          "async": true,
-          "crossDomain": true,
-          "url": "https://gservice.cfapps.sap.hana.ondemand.com/devices/" + sensortag.device.address +"/postData",
-          "method": "POST",
-          "headers": {
-            "content-type": "application/json",
-            "cache-control": "no-cache"
-//              sensortag.device.address
-          },
-          "data": JSON.stringify({"Temperature" : sensortag.tempCount.toString ,"Humidity" : window.humidityFinal, "Temperature" : window.temperatureFinal, "Luxometer" : window.luxFinal, "Pressure": window.pressureFinal, "magnetometerX" : window.magnetometerXFinal, "magnetometerY" : window.magnetometerYFinal, "magnetometerZ" : window.magnetometerZFinal,    "accelerometerX" : window.accelerometerXFinal, "accelerometerY" : window.accelerometerYFinal,  "accelerometerZ" : window.accelerometerYFinal, "gyroscopeX" : window.gyroscopeXFinal,"gyroscopeY" : window.gyroscopeYFinal, "gyroscopeZ" : window.gyroscopeZFinal  })
-        }
-         
-//         alert(sensortag.device.address);
-        $.ajax(settings).success(function (response) {
-          console.log(response);
-//          alert(window.temperatureFinal);
-        }).error(function(response){
-        alert("fail");
-//              alert(sensortag.tempCount.toString);
-//            alert(sensortag.tempCount);
-        
-        });
-    }
-
-	function getURLParameter(name) {
-		  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
-	}
-
-//	 !function(a,b){"function"==typeof define&&define.amd?define([],b):"undefined"!=typeof module&&module.exports?module.exports=b():a.ReconnectingWebSocket=b()}(this,function(){function a(b,c,d){function l(a,b){var c=document.createEvent("CustomEvent");return c.initCustomEvent(a,!1,!1,b),c}var e={debug:!1,automaticOpen:!0,reconnectInterval:1e3,maxReconnectInterval:3e4,reconnectDecay:1.5,timeoutInterval:2e3};d||(d={});for(var f in e)this[f]="undefined"!=typeof d[f]?d[f]:e[f];this.url=b,this.reconnectAttempts=0,this.readyState=WebSocket.CONNECTING,this.protocol=null;var h,g=this,i=!1,j=!1,k=document.createElement("div");k.addEventListener("open",function(a){g.onopen(a)}),k.addEventListener("close",function(a){g.onclose(a)}),k.addEventListener("connecting",function(a){g.onconnecting(a)}),k.addEventListener("message",function(a){g.onmessage(a)}),k.addEventListener("error",function(a){g.onerror(a)}),this.addEventListener=k.addEventListener.bind(k),this.removeEventListener=k.removeEventListener.bind(k),this.dispatchEvent=k.dispatchEvent.bind(k),this.open=function(b){h=new WebSocket(g.url,c||[]),b||k.dispatchEvent(l("connecting")),(g.debug||a.debugAll)&&console.debug("ReconnectingWebSocket","attempt-connect",g.url);var d=h,e=setTimeout(function(){(g.debug||a.debugAll)&&console.debug("ReconnectingWebSocket","connection-timeout",g.url),j=!0,d.close(),j=!1},g.timeoutInterval);h.onopen=function(){clearTimeout(e),(g.debug||a.debugAll)&&console.debug("ReconnectingWebSocket","onopen",g.url),g.protocol=h.protocol,g.readyState=WebSocket.OPEN,g.reconnectAttempts=0;var d=l("open");d.isReconnect=b,b=!1,k.dispatchEvent(d)},h.onclose=function(c){if(clearTimeout(e),h=null,i)g.readyState=WebSocket.CLOSED,k.dispatchEvent(l("close"));else{g.readyState=WebSocket.CONNECTING;var d=l("connecting");d.code=c.code,d.reason=c.reason,d.wasClean=c.wasClean,k.dispatchEvent(d),b||j||((g.debug||a.debugAll)&&console.debug("ReconnectingWebSocket","onclose",g.url),k.dispatchEvent(l("close")));var e=g.reconnectInterval*Math.pow(g.reconnectDecay,g.reconnectAttempts);setTimeout(function(){g.reconnectAttempts++,g.open(!0)},e>g.maxReconnectInterval?g.maxReconnectInterval:e)}},h.onmessage=function(b){(g.debug||a.debugAll)&&console.debug("ReconnectingWebSocket","onmessage",g.url,b.data);var c=l("message");c.data=b.data,k.dispatchEvent(c)},h.onerror=function(b){(g.debug||a.debugAll)&&console.debug("ReconnectingWebSocket","onerror",g.url,b),k.dispatchEvent(l("error"))}},1==this.automaticOpen&&this.open(!1),this.send=function(b){if(h)return(g.debug||a.debugAll)&&console.debug("ReconnectingWebSocket","send",g.url,b),h.send(b);throw"INVALID_STATE_ERR : Pausing to reconnect websocket"},this.close=function(a,b){"undefined"==typeof a&&(a=1e3),i=!0,h&&h.close(a,b)},this.refresh=function(){h&&h.close()}}return a.prototype.onopen=function(){},a.prototype.onclose=function(){},a.prototype.onconnecting=function(){},a.prototype.onmessage=function(){},a.prototype.onerror=function(){},a.debugAll=!1,a.CONNECTING=WebSocket.CONNECTING,a.OPEN=WebSocket.OPEN,a.CLOSING=WebSocket.CLOSING,a.CLOSED=WebSocket.CLOSED,a});
-  //
-	$(document).ready(function(){
-		init();
-	});
-
-	document.addEventListener(
-		'deviceready',
-        function() { evothings.scriptsLoaded(initialiseSensorTag) },
-		false);
-
-	function initialize() {
-	}
-
-
-	</script>
-	</head>
-<body class='pageDefault' onload='initialize();' >
-	<div id="uiArea">
-
-	<header>
-		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
-	</header>
-
-	<h1>
-		<strong>Bridge Function:</strong> <span id="BridgeStatusData">SensorTag to HCP</span><button onClick='location.reload();'>Restart Bridge</button>
-	</h1>
-	<p>
-		<strong>Sensors Nearby:</strong> <span id="SensorsNearbyData"></span>
-	</p>
-	<p>
-		<strong>Status:</strong> <span id="StatusData">Ready to connect</span>
-	</p>
-	<p>
-		<strong>Device Info:</strong> <span id="DeviceData"></span>
-	</p>
-
-
-	<h2>Temperature:</h2>
-	<p>
-		<span id="IRTemperatureData">[Waiting for value]</span>
-	</p>
-
-	<h2>Accelerometer:</h2>
-	<p>
-		<span id="AccelerometerData">[Waiting for value]</span>
-	</p>
-
-
-	<h2>Gyroscope:</h2>
-	<p>
-		<span id="GyroscopeData">[Waiting for value]</span>
-	</p>
-
-	<h2>Luxometer:</h2>
-	<p>
-		<span id="LuxometerData">[Waiting for value]</span>
-	</p>
-
-	<h2>Humidity:</h2>
-	<p>
-		<span id="HumidityData">[Waiting for value]</span>
-	</p>
-
-	<h2>Magnetometer:</h2>
-	<p>
-		<span id="MagnetometerData">[Waiting for value]</span>
-	</p>
-
-	<h2>Barometer:</h2>
-	<p>
-		<span id="BarometerData">[Waiting for value]</span>
-	</p>
-	<h2>Buttons:</h2>
-	<p>
-		<strong>Big Button:</strong> <span id="Keypress1Data"></span>
-	</p>
-	<p>
-		<strong>Little Button:</strong> <span id="Keypress2Data"></span>
-	</p>
+	<script src="js/SensorFunctions.js"></script>
+	<script src="js/Chart.js"></script>
+	<script src="http://bernii.github.io/gauge.js/dist/gauge.min.js"></script>
+
+</head>
+
+<body class='pageDefault' onload='initialize();'>
+
+	<div class="container-fluid">
+		<div class="card">
+			<div class="App-Bar">
+				<div class="Sensor-Details">
+					<p>
+						<strong>Bridge Function:</strong> <span id="BridgeStatusData">SensorTag to HCP</span>
+					</p>
+					<p>
+						<strong>Sensors Nearby:</strong> <span id="SensorsNearbyData"></span>
+					</p>
+					<p>
+						<strong>Status:</strong> <span id="StatusData">Ready to connect</span>
+					</p>
+					<p>
+						<strong>Device Info:</strong> <span id="DeviceData"></span>
+					</p>
+				</div>
+				<div class="restart">
+					<button onClick='location.reload();'>Restart Bridge</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="info-block">
+			<div class="row">
+
+				<div class="col-xs-3">
+					<figure>
+						<img src="img/icons8-temperature-48.png" class="figure-img img-fluid">
+						<figcaption class="text-center figure-caption sensor-name sensor-name">Temperature</figcaption>
+					</figure>
+					<div id="TemperatureData">[Waiting]</div>
+				</div>
+
+
+
+
+				<div class="col-xs-3">
+					<figure>
+						<img src="img/icons8-humidity-48.png" class="figure-img img-fluid">
+						<figcaption class="text-center figure-caption sensor-name">Humidity</figcaption>
+					</figure>
+					<div id="HumidityData">[Waiting]</div>
+				</div>
+
+				<div class="col-xs-3">
+					<figure>
+						<img src="img/icons8-magnet-48.png" class="figure-img img-fluid">
+						<figcaption class="text-center figure-caption sensor-name">Magnetometer</figcaption>
+					</figure>
+					<div id="MagnetometerData">[Waiting]</div>
+				</div>
+				<div class="col-xs-3">
+					<figure>
+						<img src="img/icons8-atmospheric-pressure-48.png" class="figure-img img-fluid">
+						<figcaption class="text-center figure-caption sensor-name">Atm. Pressure</figcaption>
+					</figure>
+					<div id="BarometerData">[Waiting]</div>
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="col-xs-3">
+					<figure>
+						<img src="img/icons8-light-on-48.png" class="figure-img img-fluid">
+						<figcaption class="text-center figure-caption sensor-name">Light</figcaption>
+					</figure>
+					<div id="LuxometerData">[Waiting]</div>
+				</div>
+
+				<div class="col-xs-3">
+					<figure>
+						<img src="img/icons8-gyroscope-48.png" class="figure-img img-fluid">
+						<figcaption class="text-center figure-caption sensor-name">Gyroscope</figcaption>
+					</figure>
+					<div id="GyroscopeData">[Waiting]</div>
+				</div>
+
+				<div class="col-xs-3">
+					<figure>
+						<img src="img/icons8-speed-48.png" class="figure-img img-fluid">
+						<figcaption class="text-center figure-caption sensor-name">Accelerometer</figcaption>
+					</figure>
+					<div id="AccelerometerData">[Waiting]</div>
+				</div>
+
+				<div class="col-xs-3">
+					<figure>
+						<img src="img/icons8-gps-signal-48.png" class="figure-img img-fluid">
+						<figcaption class="text-center figure-caption sensor-name">Location</figcaption>
+					</figure>
+					<div id="LocationData">[Waiting]</div>
+				</div>
+
+			</div>
+		</div>
+
+
+
+
+		<div class="card-row">
+
+			<div class="card gauge">
+
+				<div class="list-item-details">
+
+					<canvas id="tempGauge"></canvas>
+
+				</div>
+				<div class="list-icon">
+					<img src="img/icons8-temperature-48.png" style="float: left;">
+					<div class="sensor-name gauge-name">Temperature</div>
+				</div>
+
+			</div>
+
+			<div class="card gauge">
+				<div class="list-item-details">
+					<canvas id="humidityGauge"></canvas>
+				</div>
+				<div class="list-icon">
+
+					<img src="img/icons8-humidity-48.png" style="float: left;">
+					<div class="sensor-name gauge-name">Humidity</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="card-row">
+			<div class="card gauge">
+
+				<div class="list-item-details">
+					<canvas id="lightGauge"></canvas>
+				</div>
+				<div class="list-icon">
+
+					<img src="img/icons8-light-on-48.png" style="float: left; margin-left: 1em;">
+
+					<div class="sensor-name gauge-name">Light</div>
+				</div>
+			</div>
+
+			<div class="card gauge">
+				<div class="list-item-details">
+
+					<canvas id="pressureGauge"></canvas>
+				</div>
+				<div class="list-icon">
+
+					<img src="img/icons8-atmospheric-pressure-48.png"  style="float: left; margin-left: -2em">
+
+					<div class="sensor-name gauge-name">Atmospheric Pressure</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="card graph-card">
+
+			<div class="list-icon">
+					<img src="img/icons8-speed-48.png">
+				<div class="sensor-name gauge-name">Accelerometer</div>
+			</div>
+
+			<div class="list-item-details">
+
+					<canvas id="accelGraph" width="320" height="150px" class="graph"></canvas>
+					<script>
+						var accelSmoothie = new SmoothieChart({ grid: { fillStyle: '#ffffff', strokeStyle: '#eeeeee' }, labels: { fillStyle: '#000000' }, minValue: 0, maxValue: 2500, showIntermediateLabels: true });
+						accelSmoothie.streamTo(document.getElementById("accelGraph"), 1000);
+						var accelLine = new TimeSeries();
+						var accelLine1 = new TimeSeries();
+						var accelLine2 = new TimeSeries();
+						setInterval(function () {
+							accelLine.append(new Date().getTime(), window.accelerometerXFinal);
+							accelLine1.append(new Date().getTime(), window.accelerometerYFinal);
+							accelLine2.append(new Date().getTime(), window.accelerometerZFinal);
+						}, 250);
+						accelSmoothie.addTimeSeries(accelLine, { lineWidth: 2, strokeStyle: '#ff2600' });
+						accelSmoothie.addTimeSeries(accelLine1, { lineWidth: 2, strokeStyle: '#00b6ff' });
+						accelSmoothie.addTimeSeries(accelLine2, { lineWidth: 2, strokeStyle: '#00ff3b' });
+					</script>
+
+			</div>
+		</div>
+
+		<div class="card graph-card">
+			<div class="list-icon">
+					<img src="img/icons8-magnet-48.png">
+				<div class="sensor-name gauge-name">Magnetometer</div>
+			</div>
+			<div class="list-item-details">
+					<canvas id="magnetGraph" class="graph" width="320" height="150px" ></canvas>
+					<script>
+							var magnetSmoothie = new SmoothieChart({ grid: { fillStyle: '#ffffff', strokeStyle: '#eeeeee' }, labels: { fillStyle: '#000000' }, minValue: 0, maxValue: 500, showIntermediateLabels: true });
+							magnetSmoothie.streamTo(document.getElementById("magnetGraph"), 1000);
+							var magnetLine = new TimeSeries();
+							var magnetLine1 = new TimeSeries();
+							var magnetLine2 = new TimeSeries();
+
+							setInterval(function () {
+								magnetLine.append(new Date().getTime(), window.magnetometerXFinal);
+								magnetLine1.append(new Date().getTime(), window.magnetometerYFinal);
+								magnetLine2.append(new Date().getTime(), window.magnetometerZFinal);
+							}, 250);
+							magnetSmoothie.addTimeSeries(magnetLine, { lineWidth: 2, strokeStyle: '#ff2600' });
+							magnetSmoothie.addTimeSeries(magnetLine1, { lineWidth: 2, strokeStyle: '#00b6ff' });
+							magnetSmoothie.addTimeSeries(magnetLine2, { lineWidth: 2, strokeStyle: '#00ff3b' });
+					</script>
+			</div>
+		</div>
+
+		<div class="card graph-card">
+			<div class="list-icon">
+					<img src="img/icons8-gyroscope-48.png">
+					<div class="sensor-name gauge-name">Gyroscope</div>
+			</div>
+			<div class="list-item-details">
+					<canvas id="gyroGraph" class="graph" width="320" height="150px"></canvas>
+					<script>
+							var gyroSmoothie = new SmoothieChart({ grid: { fillStyle: '#ffffff', strokeStyle: '#eeeeee' }, labels: { fillStyle: '#000000' }, minValue: 0, maxValue: 200, showIntermediateLabels: true });
+							gyroSmoothie.streamTo(document.getElementById("gyroGraph"), 1000);
+							var gyroLine = new TimeSeries();
+							var gyroLine1 = new TimeSeries();
+							var gyroLine2 = new TimeSeries();
+							var time = new Date().getTime();
+							setInterval(function () {
+								gyroLine.append(new Date().getTime(), window.gyroscopeXFinal);
+								gyroLine1.append(new Date().getTime(), window.gyroscopeYFinal);
+								gyroLine2.append(new Date().getTime(), window.gyroscopeZFinal);
+							}, 250);
+							gyroSmoothie.addTimeSeries(gyroLine, { lineWidth: 2, strokeStyle: '#ff2600' });
+							gyroSmoothie.addTimeSeries(gyroLine1, { lineWidth: 2, strokeStyle: '#00b6ff' });
+							gyroSmoothie.addTimeSeries(gyroLine2, { lineWidth: 2, strokeStyle: '#00ff3b' });
+					</script>
+
+			</div>
+		</div>
+<!-- 
+		<div class="list-item">
+			<div class="list-icon">
+				<div class="live-data">
+					<img src="img/icons8-gps-signal-48.png">
+				</div>
+				<div class="sensor-name">Location</div>
+				<span id="LocationData">[Waiting for value]</span>
+			</div>
+			<div class="list-item-details">
+				<div>
+
+				</div>
+			</div>
+		</div> -->
+
+		<!-- </div> -->
+
 	</div>
+	<script src="js/ChartsFunctions.js"></script>
+	<script src="js/gauge.js"></script>
 </body>
 
 </html>
