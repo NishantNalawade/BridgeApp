@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<!--
+	Demonstration of the TI SensorTag JavaScript library.
+	Modified to connect with the HANA Cloud Platform
+
+	Date: 10/7/2018
+-->
+<html>
+
+<head>
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="-1" />
+	<meta http-equiv="cache-control" content="no-store" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/myCss.css" />
+	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<title>TI SensorTag 2.0 Sensors</title>
+	<script>
+		// Redirect console.log to Evothings Workbench.
+		if (window.hyper && window.hyper.log) { console.log = hyper.log }
+	</script>
+	<script src="cordova.js"></script>
+	<script src="libs/jquery/jquery.js"></script>
+	<script src="libs/evothings/evothings.js"></script>
+	<script src="js/smoothie.js"></script>
+	<script src="libs/evothings/tisensortag/tisensortag.js"></script>
+	<script src="js/SensorFunctions.js"></script>
+	<script src="js/Chart.js"></script>
+	<script src="http://bernii.github.io/gauge.js/dist/gauge.min.js"></script>
+
+</head>
+
+<body class='pageDefault' onload='initialize();'>
+
+	<div class="container-fluid">
+		<div class="card">
+			<div class="App-Bar">
+				<div class="Sensor-Details">
+					<p>
+						<strong>Bridge Function:</strong> <span id="BridgeStatusData">SensorTag to HCP</span>
+					</p>
+					<p>
+						<strong>Sensors Nearby:</strong> <span id="SensorsNearbyData"></span>
+					</p>
+					<p>
+						<strong>Status:</strong> <span id="StatusData">Ready to connect</span>
+					</p>
+					<p>
+						<strong>Device Info:</strong> <span id="DeviceData"></span>
+					</p>
+				</div>
+				<div class="restart">
+					<button onClick='location.reload();'>Restart Bridge</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="info-block">
+			<div class="row">
+
+				<div class="col-xs-3">
+					<figure>
+						<img src="img/icons8-temperature-48.png" class="figure-img img-fluid">
+						<figcaption class="text-center figure-caption sensor-name sensor-name">Temperature</figcaption>
+					</figure>
+					<div id="TemperatureData">[Waiting]</div>
+				</div>
+
+
+
+
+				<div class="col-xs-3">
+					<figure>
+						<img src="img/icons8-humidity-48.png" class="figure-img img-fluid">
+						<figcaption class="text-center figure-caption sensor-name">Humidity</figcaption>
+					</figure>
+					<div id="HumidityData">[Waiting]</div>
+				</div>
+
+				<div class="col-xs-3">
+					<figure>
+						<img src="img/icons8-magnet-48.png" class="figure-img img-fluid">
+						<figcaption class="text-center figure-caption sensor-name">Magnetometer</figcaption>
+					</figure>
+					<div id="MagnetometerData">[Waiting]</div>
+				</div>
+				<div class="col-xs-3">
+					<figure>
+						<img src="img/icons8-atmospheric-pressure-48.png" class="figure-img img-fluid">
+						<figcaption class="text-center figure-caption sensor-name">Atm. Pressure</figcaption>
+					</figure>
+					<div id="BarometerData">[Waiting]</div>
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="col-xs-3">
+					<figure>
+						<img src="img/icons8-light-on-48.png" class="figure-img img-fluid">
+						<figcaption class="text-center figure-caption sensor-name">Light</figcaption>
+					</figure>
+					<div id="LuxometerData">[Waiting]</div>
+				</div>
+
+				<div class="col-xs-3">
+					<figure>
+						<img src="img/icons8-gyroscope-48.png" class="figure-img img-fluid">
+						<figcaption class="text-center figure-caption sensor-name">Gyroscope</figcaption>
+					</figure>
+					<div id="GyroscopeData">[Waiting]</div>
+				</div>
+
+				<div class="col-xs-3">
+					<figure>
+						<img src="img/icons8-speed-48.png" class="figure-img img-fluid">
+						<figcaption class="text-center figure-caption sensor-name">Accelerometer</figcaption>
+					</figure>
+					<div id="AccelerometerData">[Waiting]</div>
+				</div>
+
+				<div class="col-xs-3">
+					<figure>
+						<img src="img/icons8-gps-signal-48.png" class="figure-img img-fluid">
+						<figcaption class="text-center figure-caption sensor-name">Location</figcaption>
+					</figure>
+					<div id="LocationData">[Waiting]</div>
+				</div>
+
+			</div>
+		</div>
+
+
+
+
+		<div class="card-row">
+
+			<div class="card gauge">
+
+				<div class="list-item-details">
+
+					<canvas id="tempGauge"></canvas>
+
+				</div>
+				<div class="list-icon">
+					<img src="img/icons8-temperature-48.png" style="float: left;">
+					<div class="sensor-name gauge-name">Temperature</div>
+				</div>
+
+			</div>
+
+			<div class="card gauge">
+				<div class="list-item-details">
+					<canvas id="humidityGauge"></canvas>
+				</div>
+				<div class="list-icon">
+
+					<img src="img/icons8-humidity-48.png" style="float: left;">
+					<div class="sensor-name gauge-name">Humidity</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="card-row">
+			<div class="card gauge">
+
+				<div class="list-item-details">
+					<canvas id="lightGauge"></canvas>
+				</div>
+				<div class="list-icon">
+
+					<img src="img/icons8-light-on-48.png" style="float: left; margin-left: 1em;">
+
+					<div class="sensor-name gauge-name">Light</div>
+				</div>
+			</div>
+
+			<div class="card gauge">
+				<div class="list-item-details">
+
+					<canvas id="pressureGauge"></canvas>
+				</div>
+				<div class="list-icon">
+
+					<img src="img/icons8-atmospheric-pressure-48.png"  style="float: left; margin-left: -2em">
+
+					<div class="sensor-name gauge-name">Atmospheric Pressure</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="card graph-card">
+
+			<div class="list-icon">
+					<img src="img/icons8-speed-48.png">
+				<div class="sensor-name gauge-name">Accelerometer</div>
+			</div>
+
+			<div class="list-item-details">
+
+					<canvas id="accelGraph" width="320" height="150px" class="graph"></canvas>
+					<script>
+						var accelSmoothie = new SmoothieChart({ grid: { fillStyle: '#ffffff', strokeStyle: '#eeeeee' }, labels: { fillStyle: '#000000' }, minValue: 0, maxValue: 2500, showIntermediateLabels: true });
+						accelSmoothie.streamTo(document.getElementById("accelGraph"), 1000);
+						var accelLine = new TimeSeries();
+						var accelLine1 = new TimeSeries();
+						var accelLine2 = new TimeSeries();
+						setInterval(function () {
+							accelLine.append(new Date().getTime(), window.accelerometerXFinal);
+							accelLine1.append(new Date().getTime(), window.accelerometerYFinal);
+							accelLine2.append(new Date().getTime(), window.accelerometerZFinal);
+						}, 250);
+						accelSmoothie.addTimeSeries(accelLine, { lineWidth: 2, strokeStyle: '#ff2600' });
+						accelSmoothie.addTimeSeries(accelLine1, { lineWidth: 2, strokeStyle: '#00b6ff' });
+						accelSmoothie.addTimeSeries(accelLine2, { lineWidth: 2, strokeStyle: '#00ff3b' });
+					</script>
+
+			</div>
+		</div>
+
+		<div class="card graph-card">
+			<div class="list-icon">
+					<img src="img/icons8-magnet-48.png">
+				<div class="sensor-name gauge-name">Magnetometer</div>
+			</div>
+			<div class="list-item-details">
+					<canvas id="magnetGraph" class="graph" width="320" height="150px" ></canvas>
+					<script>
+							var magnetSmoothie = new SmoothieChart({ grid: { fillStyle: '#ffffff', strokeStyle: '#eeeeee' }, labels: { fillStyle: '#000000' }, minValue: 0, maxValue: 500, showIntermediateLabels: true });
+							magnetSmoothie.streamTo(document.getElementById("magnetGraph"), 1000);
+							var magnetLine = new TimeSeries();
+							var magnetLine1 = new TimeSeries();
+							var magnetLine2 = new TimeSeries();
+
+							setInterval(function () {
+								magnetLine.append(new Date().getTime(), window.magnetometerXFinal);
+								magnetLine1.append(new Date().getTime(), window.magnetometerYFinal);
+								magnetLine2.append(new Date().getTime(), window.magnetometerZFinal);
+							}, 250);
+							magnetSmoothie.addTimeSeries(magnetLine, { lineWidth: 2, strokeStyle: '#ff2600' });
+							magnetSmoothie.addTimeSeries(magnetLine1, { lineWidth: 2, strokeStyle: '#00b6ff' });
+							magnetSmoothie.addTimeSeries(magnetLine2, { lineWidth: 2, strokeStyle: '#00ff3b' });
+					</script>
+			</div>
+		</div>
+
+		<div class="card graph-card">
+			<div class="list-icon">
+					<img src="img/icons8-gyroscope-48.png">
+					<div class="sensor-name gauge-name">Gyroscope</div>
+			</div>
+			<div class="list-item-details">
+					<canvas id="gyroGraph" class="graph" width="320" height="150px"></canvas>
+					<script>
+							var gyroSmoothie = new SmoothieChart({ grid: { fillStyle: '#ffffff', strokeStyle: '#eeeeee' }, labels: { fillStyle: '#000000' }, minValue: 0, maxValue: 200, showIntermediateLabels: true });
+							gyroSmoothie.streamTo(document.getElementById("gyroGraph"), 1000);
+							var gyroLine = new TimeSeries();
+							var gyroLine1 = new TimeSeries();
+							var gyroLine2 = new TimeSeries();
+							var time = new Date().getTime();
+							setInterval(function () {
+								gyroLine.append(new Date().getTime(), window.gyroscopeXFinal);
+								gyroLine1.append(new Date().getTime(), window.gyroscopeYFinal);
+								gyroLine2.append(new Date().getTime(), window.gyroscopeZFinal);
+							}, 250);
+							gyroSmoothie.addTimeSeries(gyroLine, { lineWidth: 2, strokeStyle: '#ff2600' });
+							gyroSmoothie.addTimeSeries(gyroLine1, { lineWidth: 2, strokeStyle: '#00b6ff' });
+							gyroSmoothie.addTimeSeries(gyroLine2, { lineWidth: 2, strokeStyle: '#00ff3b' });
+					</script>
+
+			</div>
+		</div>
+<!-- 
+		<div class="list-item">
+			<div class="list-icon">
+				<div class="live-data">
+					<img src="img/icons8-gps-signal-48.png">
+				</div>
+				<div class="sensor-name">Location</div>
+				<span id="LocationData">[Waiting for value]</span>
+			</div>
+			<div class="list-item-details">
+				<div>
+
+				</div>
+			</div>
+		</div> -->
+
+		<!-- </div> -->
+
+	</div>
+	<script src="js/ChartsFunctions.js"></script>
+	<script src="js/gauge.js"></script>
+</body>
+
+</html>
