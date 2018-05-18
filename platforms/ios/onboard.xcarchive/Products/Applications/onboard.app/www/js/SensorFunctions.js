@@ -393,8 +393,8 @@
    
    var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
    function onSuccess(position) {
-       var valuelat = Math.round(position.coords.latitude);
-       var valuelong = Math.round(position.coords.longitude);
+       var valuelat = Math.round(position.coords.latitude*1000)/1000;
+       var valuelong = Math.round(position.coords.longitude*1000)/1000;
       var string = 'Lat: ' + valuelat + '</br>' + 'Long: ' + valuelong + '</br>';
        displayValue('LocationData', string );
       window.lat = position.coords.latitude ;

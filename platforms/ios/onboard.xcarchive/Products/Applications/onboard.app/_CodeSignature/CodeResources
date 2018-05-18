@@ -86,11 +86,11 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		RC+Th+ug/+NlebMYtvSD1/Bc6io=
+		Rt5yoWNVQElQAaPvQ8HgrQzw3y4=
 		</data>
 		<key>CDVLaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
-		rgoch7O4W96QCqONgrVmoifcB7s=
+		E/Tgxr+PxAFlnjIxsdR4bsS9e9I=
 		</data>
 		<key>CDVLaunchScreen.storyboardc/Info.plist</key>
 		<data>
@@ -98,7 +98,7 @@
 		</data>
 		<key>CDVLaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib</key>
 		<data>
-		ZUKgFeL8gt8yAV4W4h5m/A0E8Lw=
+		fA0d+FrovU1PqzINLiRwruD6L3I=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -170,7 +170,7 @@
 		</data>
 		<key>MainViewController.nib</key>
 		<data>
-		EJfcZSM7ON62CBRkuN2gKxge/Z4=
+		+Q7ljqw3YIsckN1yyGw35DhhpBQ=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -178,7 +178,7 @@
 		</data>
 		<key>config.xml</key>
 		<data>
-		n7koz5TLmFYDKLETA5bUi/r8aVw=
+		ZKpEVYTmzAjV0DmAytUTD+t+O1g=
 		</data>
 		<key>embedded.mobileprovision</key>
 		<data>
@@ -206,7 +206,7 @@
 		</data>
 		<key>www/cordova_plugins.js</key>
 		<data>
-		4HBlDA7yyURrTxanlScf/byNIlU=
+		2zTXyyY5CXeTO4S8P3DQPzbBU+o=
 		</data>
 		<key>www/css/index.css</key>
 		<data>
@@ -214,7 +214,7 @@
 		</data>
 		<key>www/css/myCss.css</key>
 		<data>
-		2WWWDXiIKR/6EeGCwqDKm/TBPj8=
+		BVlAqC3wZqbUujvtu6lXNrTyQO4=
 		</data>
 		<key>www/img/icons8-atmospheric-pressure-48.png</key>
 		<data>
@@ -274,7 +274,7 @@
 		</data>
 		<key>www/index.html</key>
 		<data>
-		nUrglErM4IuNIgCtSaeT+2RQSlU=
+		G6LFZhZSAvsKJT0n/JcWhe7V+fo=
 		</data>
 		<key>www/js/Chart.js</key>
 		<data>
@@ -286,7 +286,7 @@
 		</data>
 		<key>www/js/SensorFunctions.js</key>
 		<data>
-		C+lmens0yfni5uR9EZZEYnV9LJc=
+		HwnC5UrzigoSZrOiddXDrkyuLQs=
 		</data>
 		<key>www/js/gauge.js</key>
 		<data>
@@ -331,6 +331,22 @@
 		<key>www/plugins/cordova-plugin-ble/ble.js</key>
 		<data>
 		4oc3V1Sl6U7yQnJ0q9i9te4Z6oo=
+		</data>
+		<key>www/plugins/cordova-plugin-geolocation/www/Coordinates.js</key>
+		<data>
+		JNc1ygsJAitgQfNOko6ZQoGMoTU=
+		</data>
+		<key>www/plugins/cordova-plugin-geolocation/www/Position.js</key>
+		<data>
+		tIg0sy4E0R9vLffal6TXO+p8B6Y=
+		</data>
+		<key>www/plugins/cordova-plugin-geolocation/www/PositionError.js</key>
+		<data>
+		Z52rk4RmGPgH+q1CWVHvpy5vcWY=
+		</data>
+		<key>www/plugins/cordova-plugin-geolocation/www/geolocation.js</key>
+		<data>
+		xd1PUlgwzLl4gphru/VGluqXqvg=
 		</data>
 		<key>www/ui/css/evothings-app.css</key>
 		<data>
@@ -631,22 +647,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			RC+Th+ug/+NlebMYtvSD1/Bc6io=
+			Rt5yoWNVQElQAaPvQ8HgrQzw3y4=
 			</data>
 			<key>hash2</key>
 			<data>
-			xIQFtrroeGIUkTlbAx0mBypFysSsDiM8USjhz9sViVc=
+			W4cA/XqC9gzp3qTqiLNJWyl6NwL40vRPWS+mcu47JZY=
 			</data>
 		</dict>
 		<key>CDVLaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			rgoch7O4W96QCqONgrVmoifcB7s=
+			E/Tgxr+PxAFlnjIxsdR4bsS9e9I=
 			</data>
 			<key>hash2</key>
 			<data>
-			lcPlJ6molMya3A/JM8f3pPkguNBGqheqSrrupUtOglY=
+			yUWN0FKsGqTUCAkOqSzrcx+bsAsSSrqf+tWnn2P2ijo=
 			</data>
 		</dict>
 		<key>CDVLaunchScreen.storyboardc/Info.plist</key>
@@ -664,11 +680,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ZUKgFeL8gt8yAV4W4h5m/A0E8Lw=
+			fA0d+FrovU1PqzINLiRwruD6L3I=
 			</data>
 			<key>hash2</key>
 			<data>
-			tyLfOY0+CdvdXbm9treomZT3uqUb8Sj4Oqfuq/EgUX0=
+			A+JWFJcoZDvpyHA3aKNU6cQrCnqtqz2igq6THR3SCW8=
 			</data>
 		</dict>
 		<key>LaunchImage-568h@2x.png</key>
@@ -851,22 +867,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			EJfcZSM7ON62CBRkuN2gKxge/Z4=
+			+Q7ljqw3YIsckN1yyGw35DhhpBQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			1X6ABMmElbpzdG8ketCGtCMP016BUMlAfjy6Km5DVds=
+			B8cCIf2FbFYeiHKTkfHMZKBlVj+686kdAfRr+3PYVIU=
 			</data>
 		</dict>
 		<key>config.xml</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			n7koz5TLmFYDKLETA5bUi/r8aVw=
+			ZKpEVYTmzAjV0DmAytUTD+t+O1g=
 			</data>
 			<key>hash2</key>
 			<data>
-			eK5jK+h9Xu+uHa7OTAgAKtPYzaZNxxKsMWbK37rHLVA=
+			XRbMp5wcgdWdocVc62G8Cc+H63spr7d0FxBQk0XPHTE=
 			</data>
 		</dict>
 		<key>embedded.mobileprovision</key>
@@ -939,11 +955,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			4HBlDA7yyURrTxanlScf/byNIlU=
+			2zTXyyY5CXeTO4S8P3DQPzbBU+o=
 			</data>
 			<key>hash2</key>
 			<data>
-			fum74uot/oY3tjusUTKX3Bn6534j31VcjJ3VTZELIUE=
+			d526Yxc76uhNzIrBvl+w5IuNHBLANCksccrxH3anb40=
 			</data>
 		</dict>
 		<key>www/css/index.css</key>
@@ -961,11 +977,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			2WWWDXiIKR/6EeGCwqDKm/TBPj8=
+			BVlAqC3wZqbUujvtu6lXNrTyQO4=
 			</data>
 			<key>hash2</key>
 			<data>
-			YoSOGLHhkHMN36EdghUOCID4315/b+UFmOHbWBzhnkE=
+			YLA00yX2VxP4a6WzoI92foRx45PkD5nbMsYbWARFocM=
 			</data>
 		</dict>
 		<key>www/img/icons8-atmospheric-pressure-48.png</key>
@@ -1126,11 +1142,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			nUrglErM4IuNIgCtSaeT+2RQSlU=
+			G6LFZhZSAvsKJT0n/JcWhe7V+fo=
 			</data>
 			<key>hash2</key>
 			<data>
-			hMSrRF8tF8hF0H6n46KqIEs4EAndBb3jRiKvlQp2cvQ=
+			DTcOBV1n5624LIbtysRTjuO+Ic7jQhnp+Ku6YBbuQ2c=
 			</data>
 		</dict>
 		<key>www/js/Chart.js</key>
@@ -1159,11 +1175,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			C+lmens0yfni5uR9EZZEYnV9LJc=
+			HwnC5UrzigoSZrOiddXDrkyuLQs=
 			</data>
 			<key>hash2</key>
 			<data>
-			3Z8K7RZgUPrNmQR58idSFpWpVYnh7wFZnSg5xNStSfM=
+			o7Nh0okWjmuF37DMn2eGwH7TmcOqXgu/S6N8Vzz4R8U=
 			</data>
 		</dict>
 		<key>www/js/gauge.js</key>
@@ -1285,6 +1301,50 @@
 			<key>hash2</key>
 			<data>
 			IN911ynQF2aBNdvMnCn/iW3lFtmNlOtimqUxf6K+cd0=
+			</data>
+		</dict>
+		<key>www/plugins/cordova-plugin-geolocation/www/Coordinates.js</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			JNc1ygsJAitgQfNOko6ZQoGMoTU=
+			</data>
+			<key>hash2</key>
+			<data>
+			OH4uZizB3ij82a/TT821vkN5Hsyy31oaxYoHFJZMyDM=
+			</data>
+		</dict>
+		<key>www/plugins/cordova-plugin-geolocation/www/Position.js</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			tIg0sy4E0R9vLffal6TXO+p8B6Y=
+			</data>
+			<key>hash2</key>
+			<data>
+			gBdSYze1B05fJ7IFZalvq0ISfrke93IXvZ89xJ2tJo4=
+			</data>
+		</dict>
+		<key>www/plugins/cordova-plugin-geolocation/www/PositionError.js</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Z52rk4RmGPgH+q1CWVHvpy5vcWY=
+			</data>
+			<key>hash2</key>
+			<data>
+			dtY3PXkLe4gqm887NOgz3EqspLFWqTQvN4zklddCZZ0=
+			</data>
+		</dict>
+		<key>www/plugins/cordova-plugin-geolocation/www/geolocation.js</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			xd1PUlgwzLl4gphru/VGluqXqvg=
+			</data>
+			<key>hash2</key>
+			<data>
+			v22skvbiN2CQ1u+mi67mwi3DaHJqHEjkWxMTw7y6L64=
 			</data>
 		</dict>
 		<key>www/ui/css/evothings-app.css</key>
