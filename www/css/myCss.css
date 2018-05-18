@@ -1,13 +1,14 @@
 
 
-.container{
+.container-fluid{
     background-color: #f9f8fb;
     min-width: 100%;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     min-height: 100%;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Roboto';
+    font-size: 14px;
     padding: 0px
 }
 .App-Bar{
@@ -40,15 +41,13 @@
     
 }
 
-.column{  
-    float: left;
-    width: 23.5%;
+.col-xs-3{  
     padding: 5px;
     text-align: center;
 }
 
 .list{
-    margin-top: 3.125em;
+    margin-top: 2em;
     margin-left: 1.5em;
     margin-right: 1.5em;
     margin-bottom: 1em;
@@ -57,17 +56,28 @@
     margin-top: 1em;
     padding-top: 1em;
     background: #fff;    
-    float: left;
     width: 100%;
-    padding-left: 2em;
+    margin-right: 2em;
+    /* padding-left: 2em; */
     padding-bottom: 2em;
 }
 .list-icon{
-    float: left;
     margin-right: 1.25em;
     padding-right: 2.5em;
 }
 
 .live-data{
+    margin-top: 0.25em;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+    float: left;
+}
+.sensor-name{
+    font-weight: bold; 
     margin-bottom: 0.25em;
+}
+
+#tempgauge{
+    height: 10em;
+    width: 20em;
 }
