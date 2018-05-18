@@ -47,6 +47,7 @@
 }
 
 .list{
+    background-color: #f9f8fb;
     margin-top: 2em;
     margin-left: 1.5em;
     margin-right: 1.5em;
@@ -75,9 +76,4 @@
 .sensor-name{
     font-weight: bold; 
     margin-bottom: 0.25em;
-}
-
-#tempgauge{
-    height: 10em;
-    width: 20em;
 }

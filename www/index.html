@@ -134,73 +134,77 @@
 		<div class="list">
 
 			<!-- <div class="row"> -->
-				<div class="col-sm-6 text-center">
+			<div class="col-sm-6 text-center">
 
-					<div class="list-item">
+				<div class="list-item">
 
-						<div class="list-item-details">
-							<div>
-								<canvas id="tempGauge"></canvas>
-							</div>
-						</div>
-						<div class="list-icon">
-							<div class="live-data">
-								<img src="img/icons8-temperature-48.png">
-							</div>
-							<div class="sensor-name">Temperature</div>
-							<span id="TemperatureData">[Waiting for value]</span>
-						</div>
-
-					</div>
-				</div>
-
-				<div class="col-sm-6 text-center">
-					<div class="list-item">
-						<div class="list-item-details">
-							<div>
-								<canvas id="humidityGauge"></canvas>
-							</div>
-						</div>
-						<div class="list-icon">
-							<div class="live-data">
-								<img src="img/icons8-humidity-48.png">
-							</div>
-							<div class="sensor-name">Humidity</div>
-							<span id="HumidityData">[Waiting for value]</span>
+					<div class="list-item-details">
+						<div>
+							<canvas id="tempGauge"></canvas>
 						</div>
 					</div>
-				</div>
-			<!-- </div> -->
+					<div class="list-icon">
+						<div class="live-data">
+							<img src="img/icons8-temperature-48.png">
+						</div>
+						<div class="sensor-name">Temperature</div>
+						<span id="TemperatureData">[Waiting for value]</span>
+					</div>
 
-			<div class="list-item">
-				<div class="list-icon">
-					<div class="live-data">
-						<img src="img/icons8-light-on-48.png">
-					</div>
-					<div class="sensor-name">Light</div>
-					<span id="LuxometerData">[Waiting for value]</span>
-				</div>
-				<div class="list-item-details">
-					<div>
-						<canvas id="lightGauge"></canvas>
-					</div>
 				</div>
 			</div>
 
-			<div class="list-item">
-				<div class="list-icon">
-					<div class="live-data">
-						<img src="img/icons8-atmospheric-pressure-48.png">
+			<div class="col-sm-6 text-center">
+				<div class="list-item">
+					<div class="list-item-details">
+						<div>
+							<canvas id="humidityGauge"></canvas>
+						</div>
 					</div>
-					<div class="sensor-name">Atmospheric Pressure</div>
-					<span id="BarometerData">[Waiting for value]</span>
+					<div class="list-icon">
+						<div class="live-data">
+							<img src="img/icons8-humidity-48.png">
+						</div>
+						<div class="sensor-name">Humidity</div>
+						<span id="HumidityData">[Waiting for value]</span>
+					</div>
 				</div>
-				<div class="list-item-details">
-					<div>
-						<canvas id="pressureGauge">
-						</canvas>
+			</div>
+			<!-- </div> -->
+			<div class="col-sm-6 text-center">
+
+				<div class="list-item">
+
+					<div class="list-item-details">
+						<div>
+							<canvas id="lightGauge"></canvas>
+						</div>
+					</div>
+					<div class="list-icon">
+						<div class="live-data">
+							<img src="img/icons8-light-on-48.png">							
+						</div>
+						<div class="sensor-name">Light</div>
+						<span id="LuxometerData">[Waiting for value]</span>
 					</div>
 
+				</div>
+			</div>
+
+			<div class="col-sm-6 text-center">
+				<div class="list-item">
+					<div class="list-item-details">
+						<div>
+							<canvas id="pressureGauge"></canvas>
+						</div>
+					</div>
+					<div class="list-icon">
+						<div class="live-data">
+							<img src="img/icons8-atmospheric-pressure-48.png">
+						</div>
+						<div class="sensor-name">Atmospheric Pressure</div>
+						<span id="BarometerData">[Waiting for value]</span>
+					</div>
 				</div>
 			</div>
 
@@ -279,20 +283,20 @@
 					<div>
 						<canvas id="gyroGraph" width="250px" height="200"></canvas>
 						<script>
-										var gyroSmoothie = new SmoothieChart({ grid: { fillStyle: '#ffffff', strokeStyle: '#000000' }, labels: { fillStyle: '#000000' }, minValue: 0, maxValue: 200, showIntermediateLabels: true });
-										gyroSmoothie.streamTo(document.getElementById("gyroGraph"), 1000);
-										var gyroLine = new TimeSeries();
-										var gyroLine1 = new TimeSeries();
-										var gyroLine2 = new TimeSeries();
-										var time = new Date().getTime();
-										setInterval(function () {
-											gyroLine.append(new Date().getTime(), window.gyroscopeXFinal);
-											gyroLine1.append(new Date().getTime(), window.gyroscopeYFinal);
-											gyroLine2.append(new Date().getTime(), window.gyroscopeZFinal);
-										}, 250);
-										gyroSmoothie.addTimeSeries(gyroLine, { lineWidth: 2, strokeStyle: '#ff2600' });
-										gyroSmoothie.addTimeSeries(gyroLine1, { lineWidth: 2, strokeStyle: '#00b6ff' });
-										gyroSmoothie.addTimeSeries(gyroLine2, { lineWidth: 2, strokeStyle: '#00ff3b' });
+							var gyroSmoothie = new SmoothieChart({ grid: { fillStyle: '#ffffff', strokeStyle: '#000000' }, labels: { fillStyle: '#000000' }, minValue: 0, maxValue: 200, showIntermediateLabels: true });
+							gyroSmoothie.streamTo(document.getElementById("gyroGraph"), 1000);
+							var gyroLine = new TimeSeries();
+							var gyroLine1 = new TimeSeries();
+							var gyroLine2 = new TimeSeries();
+							var time = new Date().getTime();
+							setInterval(function () {
+								gyroLine.append(new Date().getTime(), window.gyroscopeXFinal);
+								gyroLine1.append(new Date().getTime(), window.gyroscopeYFinal);
+								gyroLine2.append(new Date().getTime(), window.gyroscopeZFinal);
+							}, 250);
+							gyroSmoothie.addTimeSeries(gyroLine, { lineWidth: 2, strokeStyle: '#ff2600' });
+							gyroSmoothie.addTimeSeries(gyroLine1, { lineWidth: 2, strokeStyle: '#00b6ff' });
+							gyroSmoothie.addTimeSeries(gyroLine2, { lineWidth: 2, strokeStyle: '#00ff3b' });
 						</script>
 						<!-- <span id="GyroscopeData">[Waiting for value]</span>
 									<div>Gyroscope</div> -->
