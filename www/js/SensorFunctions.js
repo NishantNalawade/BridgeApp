@@ -15,7 +15,6 @@
 	sensortag.gyroscopeCount   = 0;
 	sensortag.barometerCount   = 0;
     window.humidityFinal       = 0;
-    window.temperatureFinal    = 0;
     window.luxFinal            = 0;
     window.pressureFinal       = 0;
     window.magnetometerXFinal  = 0;
@@ -175,11 +174,20 @@
 			currentDevice.deviceName = sensortag.device.address;
 			displayValue('DeviceName',currentDevice.deviceName + " connected " + currentDevice.connectionCount + " times.");
 		}
+          window.temperatureFinal = Math.round(ac);
+        if(ac >= 20 && window.tempstat == false)
+        {cordova.plugins.notification.local.schedule({
+        title: 'Temperature Warning',
+        text: 'Temperature is Above ' + window.temperatureFinal + ' Deg C',
+        foreground: true,
+        });                   
+        window.tempstat = true;   
+                                         }
+        setInterval(function(){window.tempstat = false;},20000);
 		// Update the value displayed.
-        window.temperatureFinal = Math.round(ac);
-		displayValue('TemperatureData', string)
+      
+		displayValue('TemperatureData', string);
 	}
-
 	function accelerometerHandler(data)
 	{
 		// Calculate the x,y,z accelerometer values from raw data.
@@ -212,6 +220,11 @@
 //        alert(window.humidityFinal);
 		h = h < 0?h*-1:h;
         window.humidityFinal = Math.round(h.toFixed(2));
+        if(window.humidityFinal == 0){cordova.plugins.notification.local.schedule({
+        title: 'No Humidity',
+        text: 'Check Fridge Humidity',
+        foreground: true
+        });}
 		// Prepare the information to display.
         string = (h >= 0 ? '+' : '') + h.toFixed(2) + '% RH' + '<br/>';
 		// Update the value displayed.
@@ -257,6 +270,12 @@
 		}
 		currentPressure = pressure;
 		// Update the value displayed.
+        if(window.pressureFinal == 0){cordova.plugins.notification.local.schedule({
+        title: 'Pressure',
+        text: 'Pressure is Zero',
+        foreground: true
+});}    
+        
 		displayValue('BarometerData', string)
     }
 
@@ -270,7 +289,8 @@
 		var z = values.z
         window.gyroscopeXFinal = x; 
         window.gyroscopeYFinal = y; 
-        window.gyroscopeZFinal = z; 
+        window.gyroscopeZFinal = z;
+        
 		// Prepare the information to display.
         
         string =
@@ -289,6 +309,15 @@
         var string = data[1]/2 ;
 		// Update the value displayed.
         window.luxFinal = (data[1]/2);
+        cordova.plugins.notification.local.setDefaults({
+            vibrate: false
+        });
+        if(window.luxFinal == 0 ){cordova.plugins.notification.local.schedule({
+        title: 'Light is Off',
+        text: 'Check Fridge Light',
+        foreground: true,
+        vibrate: false
+        }); }
 		displayValue('LuxometerData', string + " Lux" );
 	}
 
@@ -365,7 +394,7 @@
           console.log(response);
 //          alert("Success");
         }).error(function(response){
-        alert("Disconnected \n Reconnecting...");
+        alert(str.fontcolor( "Disconnected \n Reconnecting..." ));
 //             sendMessage(param,value);
 //            alert("Connection Failed");
 //             timeout(1000);
