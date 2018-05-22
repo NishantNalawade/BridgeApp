@@ -175,17 +175,7 @@
 			displayValue('DeviceName',currentDevice.deviceName + " connected " + currentDevice.connectionCount + " times.");
 		}
           window.temperatureFinal = Math.round(ac);
-        if(ac >= 20 && window.tempstat == false)
-        {cordova.plugins.notification.local.schedule({
-        title: 'Temperature Warning',
-        text: 'Temperature is Above ' + window.temperatureFinal + ' Deg C',
-        foreground: true,
-        });                   
-        window.tempstat = true;   
-                                         }
-        setInterval(function(){window.tempstat = false;},20000);
-		// Update the value displayed.
-      
+        // Update the value displayed.
 		displayValue('TemperatureData', string);
 	}
 	function accelerometerHandler(data)
@@ -220,11 +210,6 @@
 //        alert(window.humidityFinal);
 		h = h < 0?h*-1:h;
         window.humidityFinal = Math.round(h.toFixed(2));
-        if(window.humidityFinal == 0){cordova.plugins.notification.local.schedule({
-        title: 'No Humidity',
-        text: 'Check Fridge Humidity',
-        foreground: true
-        });}
 		// Prepare the information to display.
         string = (h >= 0 ? '+' : '') + h.toFixed(2) + '% RH' + '<br/>';
 		// Update the value displayed.
@@ -270,11 +255,6 @@
 		}
 		currentPressure = pressure;
 		// Update the value displayed.
-        if(window.pressureFinal == 0){cordova.plugins.notification.local.schedule({
-        title: 'Pressure',
-        text: 'Pressure is Zero',
-        foreground: true
-});}    
         
 		displayValue('BarometerData', string)
     }
