@@ -407,7 +407,7 @@
       var string = 'Lat: ' + valuelat + '</br>' + 'Long: ' + valuelong + '</br>';
        displayValue('LocationData', string );
       window.lat = position.coords.latitude ;
-      window.long = position.coords.latitude ;
+      window.long = position.coords.longitude ;
    }
 
    function onError(error) {
